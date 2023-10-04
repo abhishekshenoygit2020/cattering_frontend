@@ -164,13 +164,13 @@ const Sidebar = ({isOpen, setIsOpen }) => {
                                            }        
                                        </div>
                                    </>: 
-                                   <NavLink to={item.path} className="link" activeClassName="active">                         
+                                   <NavLink to={item.path} className="link" activeClassName="active" onClick = {(e)=> {trackgeneration(e)}}>                         
                                        <div className="linkIcon" title={ isOpen ? '' : item.name }>
                                            <span className="Icon">
                                            {item.icon}
                                            </span>                            
                                        </div>
-                                       <div className="linkText" style={{ display: isOpen ? 'block' : 'none' }} onClick = {(e)=> {trackgeneration(e)}}>
+                                       <div className="linkText" style={{ display: isOpen ? 'block' : 'none' }} >
                                            <span>
                                            {item.name}
                                            </span>                            

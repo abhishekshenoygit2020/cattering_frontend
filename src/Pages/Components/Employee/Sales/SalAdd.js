@@ -4,7 +4,7 @@ import DialogActions from '@mui/material/DialogActions';
 import axios from "../../../../api/axios";
 const URL = './purchase';
 
-const SalAdd = ({ open, setOpen, isAddButton, setRefreshData,trackno}) => {
+const SalAdd = ({ open, setOpen, isAddButton, setRefreshData,trackno,refreshComponent}) => {
     
   
     const [id, setId] = useState('');
@@ -13,6 +13,7 @@ const SalAdd = ({ open, setOpen, isAddButton, setRefreshData,trackno}) => {
     const [user_city,setCity]=useState('');
     const [user_pin,setPin]=useState('');
     const [payment_method,setMethod]=useState('');
+    const [tracknoTotalPrice,setTracknoTotalPrice] = useState(0);
   
  
     
@@ -34,18 +35,31 @@ const SalAdd = ({ open, setOpen, isAddButton, setRefreshData,trackno}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const method = "POST";
-       try  {        
+        try {        
             const data = {trackno,user_fullname,user_address,user_city,user_pin,payment_method};
             const mainURL = URL+'/add';
             serviceMethod(mainURL,method,data, handleSuccess, handleException);
-       }
+        }
         catch(e){
             console.error(e);
             
         } 
     };
-
-
+    
+    useEffect(() => {
+        const method = "POST";
+        try {        
+            const data = {id:trackno};
+            const mainURL = 'track/getTotPrice';
+            serviceMethod(mainURL,method,data, trackhandleSuccess, handleException);
+        }
+        catch(e){
+            console.error("error"+e);
+            
+        } 
+    },[trackno,refreshComponent]);
+    
+    
     const handleSuccess = (data) => {         
         setOpen(false);     
         setRefreshData((oldValue) => {
@@ -53,8 +67,13 @@ const SalAdd = ({ open, setOpen, isAddButton, setRefreshData,trackno}) => {
         });
     }
 
+    const trackhandleSuccess = (data) => {
+        setTracknoTotalPrice(data.data);
+        console.log("trackno from backen", data);
+    };  
+
     const handleException = (data) => {
-        console.log(data);
+        console.log("tracknot found data");
     }
 
     return (
@@ -135,24 +154,31 @@ const SalAdd = ({ open, setOpen, isAddButton, setRefreshData,trackno}) => {
                                 </FormControl>
                         </Grid>
                         <Grid item xs={3}>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">payment_method</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={payment_method}
-                            label="Age"
-                            onChange={ (e) => setMethod(e.target.value)}
-                            >
-                            <MenuItem value={"debit"}>debit</MenuItem>
-                            <MenuItem value={"card"}>card</MenuItem>
-                            <MenuItem value={"cash"}>cash</MenuItem>
-                            <MenuItem value={"credit"}>credit</MenuItem>
-                            </Select>
-                        </FormControl>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">payment_method</InputLabel>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={payment_method}
+                                label="Age"
+                                onChange={ (e) => setMethod(e.target.value)}
+                                >
+                                <MenuItem value={"debit"}>debit</MenuItem>
+                                <MenuItem value={"card"}>card</MenuItem>
+                                <MenuItem value={"cash"}>cash</MenuItem>
+                                <MenuItem value={"credit"}>credit</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <DialogTitle>
+                                Total Price:{tracknoTotalPrice}
+                            </DialogTitle>    
                         </Grid>
                         
                     </Grid>
+                        
+                    
                 </Grid>                  
                                   
           </DialogContent>
