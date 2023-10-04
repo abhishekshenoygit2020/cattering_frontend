@@ -18,6 +18,7 @@ import SalDisplay from './Pages/Components/Employee/Sales/SalDisplay';
 import StockDisplay from './Pages/Components/Employee/Stock/StockDisplay';
 import FormSal from './Pages/Components/Employee/Sales/FormSal';
 import RegisterForm from './Pages/Components/RegisterForm';
+import Navbar from './Pages/Components/UserDashboard/Navbar';
 // import ProtectedRoutes from './Pages/Components/Question/protectedRoutes';
 
 
@@ -42,7 +43,7 @@ const MainRoutes = () => {
                 <Route path="/Checklist" element={<CheckTab/>}/>
                 {/* <Route path="/DashboardUser" element={<AteRemoteMonitoring />}/>  */}
               </Route>
-              <Route path="/DashboardUser" element={<AteRemoteMonitoring />}/> 
+              <Route path="/DashboardUser" element={<Navbar/>}/> 
             </Route>                      
          </Routes>//ZJu8nG!&j
     );

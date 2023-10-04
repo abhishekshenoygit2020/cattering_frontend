@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,20 +9,58 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
+import axios from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
+const URL = './userRegister';
 
 
 
 
 export default function RegisterForm() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-  };
+    const [id, setId] = useState('');
+    const [first_name, setFirstname] = useState('');
+    const [last_name,setLastname]=useState('');
+    const [username,setUsername]=useState('');
+    const [email,setEmail]=useState('');
+    const [contact,setContact]=useState('');
+    const [password,setPassword]=useState('');
+    const navigate = useNavigate();
+
+    const serviceMethod = async (mainURL,method,data,handleSuccess,handleException) => {
+        try{
+            const response = await axios.post(mainURL,data);
+            return handleSuccess(response.data);  
+        }catch(err){
+            if(!err?.response){
+                console.log("No server response");                
+            }else{                
+                return handleException(err?.response.data);
+            }
+        }                  
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const method = "POST";
+        try{      
+            const data = {first_name,last_name,username,email,contact,password};
+            const mainURL = URL+'/add';
+            serviceMethod(mainURL,method,data, handleSuccess,handleException);
+        }catch(e){
+        console.error(e);}
+        } 
+
+        const handleSuccess = (data) => {         
+            console.log(data);
+            alert("registered successfully");
+            navigate('/Login');   
+        }
+    
+        const handleException = (data) => {
+            console.log(data);
+        }
+    
+  
 
   return (
     
@@ -52,6 +90,8 @@ export default function RegisterForm() {
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  value={first_name}
+                  onChange={(e) => { setFirstname(e.target.value)}}
                   autoFocus
                 />
               </Grid>
@@ -63,6 +103,8 @@ export default function RegisterForm() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value={last_name}
+                  onChange={(e) => { setLastname(e.target.value)}}
                 />
               </Grid>
               <Grid item xs={12} >
@@ -73,6 +115,8 @@ export default function RegisterForm() {
                   label="Username"
                   name="lastName"
                   autoComplete="family-name"
+                  value={username}
+                  onChange={(e) => { setUsername(e.target.value)}}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -83,6 +127,9 @@ export default function RegisterForm() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  
+                  onChange={(e) => { setEmail(e.target.value)}}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -93,6 +140,8 @@ export default function RegisterForm() {
                   label="Phone number"
                   name="email"
                   autoComplete="email"
+                  value={contact}
+                  onChange={(e) => { setContact(e.target.value)}}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -103,7 +152,9 @@ export default function RegisterForm() {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  autoComplete=""
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value)}}
                 />
               </Grid>
               

@@ -207,7 +207,7 @@ const OrgTable = () => {
                                 setIsAddButton(true);
                                 setOpen(true);
                                 setEditData([]);
-                            }} variant="contained">Add Organition</Button>
+                            }} variant="contained">Add Organisation</Button>
                         </Grid>                        
                     </Grid>
                 </Box>
