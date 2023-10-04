@@ -18,6 +18,17 @@ export const AuthContextProvider = ({children}) => {
     const [loggedIn, setLoggedIn] = useState(false);    
     const navigate = useNavigate();
 
+    const [trackNo,setTrackno] = useState(''); 
+
+    const trackgeneration = (e) => {
+        console.log("from auth context");
+        var num = Math.floor(Math.random() * 90000) + 10000;
+       
+        setTrackno(num);
+        console.log("trackno"+trackNo);
+        
+    };
+
     const Login = userData => {
         setUser(userData.userName); 
         setUserRole(userData.userRole);        
@@ -53,7 +64,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     return  (
-        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout }}>
+        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo }}>
             {children} 
         </AuthContext.Provider>
     )
@@ -61,8 +72,8 @@ export const AuthContextProvider = ({children}) => {
 }
 
 export function useAuthContext(){
-    const {user, Login, userRole, copmanyCode,loggedIn, Logout} =  useContext(AuthContext);
-    return {user, Login, userRole,copmanyCode, loggedIn, Logout};
+    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo} =  useContext(AuthContext);
+    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo};
 }
 
 

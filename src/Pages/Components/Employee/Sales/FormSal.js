@@ -21,6 +21,7 @@ const FormSal = () => {
     const [pname, setPname] = useState('');
     const [dataList, setDataList] = useState([]);
     const [refreshData, setRefreshData] = useState(false); 
+    const [refreshComponent,setRefreshComponent] = useState(false);
     const [isAddButton, setIsAddButton] = useState(true);
     const [open, setOpen] = useState(false);
     const [trackno, setTrackno] = useState('');
@@ -182,6 +183,9 @@ const FormSal = () => {
                <Button style={{ marginTop:'5px', marginLeft: '0px' }} onClick={(e) => {
                 setIsAddButton(true);
                 setOpen(true);
+                setRefreshComponent((oldValue) => {
+                    return !oldValue;
+                });
                 }} variant="contained">Purchase</Button>
                 
                  </form>
@@ -195,7 +199,8 @@ const FormSal = () => {
                         open={open}   
                         // rowData={editData}        
                         setRefreshData={setRefreshData} 
-                        trackno={trackno}         
+                        trackno={trackno}
+                        refreshComponent={refreshComponent}        
                     />
                  </Box>
         </div>
