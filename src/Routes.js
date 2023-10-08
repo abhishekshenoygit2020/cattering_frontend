@@ -19,6 +19,8 @@ import StockDisplay from './Pages/Components/Employee/Stock/StockDisplay';
 import FormSal from './Pages/Components/Employee/Sales/FormSal';
 import RegisterForm from './Pages/Components/RegisterForm';
 import Navbar from './Pages/Components/UserDashboard/Navbar';
+import ChangePassword from './Pages/Components/Login/ChangePassword';
+import ForgotPassword from './Pages/Components/Login/ForgotPassword';
 // import ProtectedRoutes from './Pages/Components/Question/protectedRoutes';
 
 
@@ -27,6 +29,7 @@ const MainRoutes = () => {
         <Routes>
           <Route path="/login" element={ <Login />} />    
           <Route path="/RegisterForm" element={<RegisterForm/>}/>
+          <Route path="/ForgotPassword" element={<ForgotPassword />}/>
            <Route element={<ProtectedRoutes />}>         
               <Route path="/" element={<Homepage />} >
                 <Route path="/Dashboard" element={<Dashboard />} />
@@ -36,7 +39,7 @@ const MainRoutes = () => {
                 <Route path="/Products" element={<ProdDisplay/>}/>
                 <Route path="/Sales" element={<FormSal/>}/>
                 <Route path="/Stock" element={<StockDisplay/>}/>
-                
+                <Route path="/ChangePassword" element = {<ChangePassword />} />
                 <Route path="/User" element={<UserList/>}/>
                 <Route path="/Master" element={<DeptTab/>}/>
                 <Route path="/Logs" element={<Logs/>}/>

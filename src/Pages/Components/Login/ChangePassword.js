@@ -16,18 +16,18 @@ import { useAuthContext } from '../../../context/AuthContext';
 import axios from '../../../api/axios';
 import ApplicationStore from '../../../utils/localStorageUtil';
 
-const LOGIN_URL = './auth/login';
+const LOGIN_URL = './auth/changePassword';
 
-function Login() {
+function ChangePassword() {
 
     
-    const [user,setUser] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { Login } = useAuthContext();
-    const navigate = useNavigate();
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword,setConfirmNewPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const { Login, email, user} = useAuthContext();
+  const navigate = useNavigate();
     
-    const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
         event.preventDefault();
       };
       
@@ -35,7 +35,7 @@ function Login() {
     const handleSave = async (e) => {
       e.preventDefault();         
       try{
-        const data = {email,password};  
+        const data = {username:user,email,newPassword,oldPassword,confirmPassword:confirmNewPassword};  
         
 
         const response = await axios.post( LOGIN_URL,data,
@@ -44,25 +44,8 @@ function Login() {
           }
        );       
        const dataResponse = response.data;     
-       if(dataResponse.success === 1){
-           const userData = {
-               userName: dataResponse.data.username,
-               userToken: dataResponse.data.userToken,
-               userRole: dataResponse.data.userRole,
-               companyCode:dataResponse.data.userCompany,
-               empid:dataResponse.data.empid,
-               email:dataResponse.data.email               
-           };
-           Login(userData);
-           if(dataResponse.data.userRole == "superuser"){
-            navigate('/SuperUserDashboard');         
-           }else if(dataResponse.data.userRole == "user"){
-            navigate('/DashboardUser');         
-           }else{
-            navigate('/Dashboard');         
-            }           
-           setEmail('');
-           setPassword('');
+       if(dataResponse.success === 1){           
+           alert(dataResponse.message);
        }      
      
     }catch(err){
@@ -89,35 +72,49 @@ function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Change Password
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} >
             <TextField
               margin="normal"
               fullWidth
               id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              label="Old Password"
+              name="oldPassword"
+              autoComplete="password"
+              type="password"
               autoFocus
-              value={email}
+              value={oldPassword}
               onChange={(e)=> { 
-                setEmail(e.target.value); 
-                setUser(e.target.value)} }
+                setOldPassword(e.target.value); 
+              }}
               required
             />
             <TextField
               margin="normal"
               fullWidth
-              name="password"
-              label="Password"
+             
+              label="New Password"
               type="password"
               id="password"
               autoComplete="current-password"
-              value={password}
-              onChange={(e)=>setPassword(e.target.value)}
+              value={newPassword}
+              onChange={(e)=>setNewPassword(e.target.value)}
               required
             />
+            <TextField
+              margin="normal"
+              fullWidth
+             
+              label="Confirm Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={confirmNewPassword}
+              onChange={(e)=>setConfirmNewPassword(e.target.value)}
+              required
+            />
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary"/>}
               label="Remember me"
@@ -129,24 +126,11 @@ function Login() {
               sx={{ mt: 3, mb: 2 }}
               onClick={handleSave}
             >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="ForgotPassword" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item xs>
-              <Link href="RegisterForm" variant = "body2">
-                Not have an account ? Sign up here 
-
-              </Link>
-              </Grid>
-            </Grid>
+              Submit
+            </Button>          
           </Box>
         </Box>
       </Container>
   );
 };
-export default Login;
+export default ChangePassword;
