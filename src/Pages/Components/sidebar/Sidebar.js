@@ -11,6 +11,7 @@ import AddAlertIcon from '@mui/icons-material/AddAlert';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import LockResetSharpIcon from '@mui/icons-material/LockResetSharp';
 import { useAuthContext } from "../../../context/AuthContext";
 import ApplicationStore from "../../../utils/localStorageUtil";
 
@@ -56,6 +57,11 @@ const Sidebar = ({isOpen, setIsOpen }) => {
                     name:"Logout",
                     icon:<AddAlertIcon />
                 },
+                {
+                    path:"/changepassword",
+                    name:"ChangePassword",
+                    icon:<LockResetSharpIcon />
+                }
                 
                  
         

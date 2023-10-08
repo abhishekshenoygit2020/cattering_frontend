@@ -16,15 +16,14 @@ import { useAuthContext } from '../../../context/AuthContext';
 import axios from '../../../api/axios';
 import ApplicationStore from '../../../utils/localStorageUtil';
 
-const LOGIN_URL = './auth/login';
+const LOGIN_URL = './auth/forgotPassword';
 
-function Login() {
+function ForgotPassword() {
 
     
-    const [user,setUser] = useState('');
+   
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { Login } = useAuthContext();
+    
     const navigate = useNavigate();
     
     const handleSubmit = (event) => {
@@ -35,7 +34,7 @@ function Login() {
     const handleSave = async (e) => {
       e.preventDefault();         
       try{
-        const data = {email,password};  
+        const data = {email};  
         
 
         const response = await axios.post( LOGIN_URL,data,
@@ -44,26 +43,9 @@ function Login() {
           }
        );       
        const dataResponse = response.data;     
-       if(dataResponse.success === 1){
-           const userData = {
-               userName: dataResponse.data.username,
-               userToken: dataResponse.data.userToken,
-               userRole: dataResponse.data.userRole,
-               companyCode:dataResponse.data.userCompany,
-               empid:dataResponse.data.empid,
-               email:dataResponse.data.email               
-           };
-           Login(userData);
-           if(dataResponse.data.userRole == "superuser"){
-            navigate('/SuperUserDashboard');         
-           }else if(dataResponse.data.userRole == "user"){
-            navigate('/DashboardUser');         
-           }else{
-            navigate('/Dashboard');         
-            }           
-           setEmail('');
-           setPassword('');
-       }      
+       if(dataResponse.success === 1){           
+            alert("Please Check Your email For Password");
+        }      
      
     }catch(err){
         if(!err?.response){
@@ -103,25 +85,10 @@ function Login() {
               value={email}
               onChange={(e)=> { 
                 setEmail(e.target.value); 
-                setUser(e.target.value)} }
+              }}
               required
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e)=>setPassword(e.target.value)}
-              required
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary"/>}
-              label="Remember me"
-            />
+            />           
+            
             <Button
               type="submit"
               fullWidth
@@ -133,8 +100,8 @@ function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="ForgotPassword" variant="body2">
-                  Forgot password?
+                <Link href="login" variant="body2">
+                  Login
                 </Link>
               </Grid>
               <Grid item xs>
@@ -149,4 +116,4 @@ function Login() {
       </Container>
   );
 };
-export default Login;
+export default ForgotPassword;

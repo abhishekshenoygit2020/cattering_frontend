@@ -16,6 +16,7 @@ export const AuthContextProvider = ({children}) => {
     const [userRole, setUserRole] = useState('');
     const [companyCode, setCompanyCode] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);    
+    const [email, setEmail] = useState('');   
     const navigate = useNavigate();
 
     const [trackNo,setTrackno] = useState(''); 
@@ -33,6 +34,7 @@ export const AuthContextProvider = ({children}) => {
         setUser(userData.userName); 
         setUserRole(userData.userRole);        
         setCompanyCode(userData.companyCode);
+        setEmail(userData.email);
         ApplicationStore().setStorage('token',userData.userToken);
         ApplicationStore().setStorage('userRole',userData.userRole);
         ApplicationStore().setStorage('userCompany',userData.companyCode);
@@ -64,7 +66,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     return  (
-        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo }}>
+        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo,email }}>
             {children} 
         </AuthContext.Provider>
     )
@@ -72,8 +74,8 @@ export const AuthContextProvider = ({children}) => {
 }
 
 export function useAuthContext(){
-    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo} =  useContext(AuthContext);
-    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo};
+    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo,email} =  useContext(AuthContext);
+    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo,email};
 }
 
 
