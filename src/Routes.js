@@ -21,6 +21,7 @@ import RegisterForm from './Pages/Components/RegisterForm';
 import Navbar from './Pages/Components/UserDashboard/Navbar';
 import ChangePassword from './Pages/Components/Login/ChangePassword';
 import ForgotPassword from './Pages/Components/Login/ForgotPassword';
+import Home from './Pages/Components/homepage/Home';
 // import ProtectedRoutes from './Pages/Components/Question/protectedRoutes';
 
 
@@ -31,7 +32,7 @@ const MainRoutes = () => {
           <Route path="/RegisterForm" element={<RegisterForm/>}/>
           <Route path="/ForgotPassword" element={<ForgotPassword />}/>
            <Route element={<ProtectedRoutes />}>         
-              <Route path="/" element={<Homepage />} >
+              <Route path="/" element={<Home />} >
                 <Route path="/Dashboard" element={<Dashboard />} />
                 <Route path="/SuperUserDashboard" element={<SuperUserDashboard/>} />
                 <Route path="/Category" element={<CatDisplay/>}/>

@@ -14,8 +14,12 @@ main{
     transition: 0.5s;
 }
 .content{
-    width:100%;    
+    width:75%;    
+    margin: 5% 10% 10% 10%;
 }
+
+
+
 .sidebar{
     height:100%;
     top:0;
@@ -62,6 +66,7 @@ main{
     border: 3px solid var(--scroll-bar-bg-color);
 }
 
+   
 
 
 
