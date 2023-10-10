@@ -5,10 +5,22 @@ import UserDailog from './UserDailog';
 import { Grid } from "@mui/material";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
 import { DataGrid } from "@mui/x-data-grid";
 import axios from '../../../api/axios';
 const URL = './userRegister';
   
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 
 const UserList=()=> {
@@ -156,43 +168,46 @@ const handleException = (data) => {
 return(
 
   <>
-   <div style={{marginTop:'10px', padding:'25px' }}>
-            <div className = "topContent">
-                <Box sx={{ flexGrow: 1, padding:'10px' }}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={10} >
-                           
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Button style={{ marginTop:'5px', marginLeft: '0px' ,backgroundColor:'#4E4E4E'}} onClick={(e) => {
-                                setIsAddButton(true);
-                                setOpen(true);
-                                setEditData([]);
-                            }} variant="contained">Add USER</Button>
-                        </Grid>                        
-                    </Grid>
-                </Box>
-            </div>
-            <div className="GridContent">
-                <Box sx={{ flexGrow: 1, padding:'0px', height: 400, width: '100%' }} >                    
-                    <DataGrid
-                        rows={dataList}
-                        columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}                          
-                        experimentalFeatures={{ newEditingApi: true }}
-                    /> 
-                    <UserDailog
-                        isAddButton ={isAddButton}                        
-                        setOpen ={setOpen} 
-                        open={open}   
-                        rowData={editData}        
-                        setRefreshData={setRefreshData}        
-                    />
-                </Box>
-            </div>
+   <div style={{marginTop:'0px', padding:'0px' }}>
+        <div className = "">
+            <Box sx={{ flexGrow: 1, padding:'10px' }}>
+                <Grid container spacing={2}>
+                    
+                    <Grid item xs={12}>
+                        <Button style={{ marginTop:'5px', marginLeft: '0px' ,backgroundColor:'#4E4E4E'}} onClick={(e) => {
+                            setIsAddButton(true);
+                            setOpen(true);
+                            setEditData([]);
+                        }} variant="contained">Add USER</Button>
+                    </Grid>                        
+                </Grid>
+            </Box>
         </div>
-     </> 
+        <div className="">
+            <Box sx={{ flexGrow: 0, padding:'0px', height: 400, width: '85%' }} >                    
+                <DataGrid
+                    rows={dataList}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}                          
+                    experimentalFeatures={{ newEditingApi: true }}
+                /> 
+                <UserDailog
+                    isAddButton ={isAddButton}                        
+                    setOpen ={setOpen} 
+                    open={open}   
+                    rowData={editData}        
+                    setRefreshData={setRefreshData}        
+                />
+            </Box>           
+        </div>
+    </div>
+  
+     
+    
+      
+   
+    </> 
 )
           
 };

@@ -27,41 +27,41 @@ const Sidebar = ({isOpen, setIsOpen }) => {
             icon:<DashboardCustomizeIcon />
         },   
         
-                {
-                    path:"/User",
-                    name:"Users",
-                     icon:<PersonOutlineIcon />
-                },
-                {
-                    path:"/Sales",
-                    name:"Sales",
-                     icon:<DomainIcon />
-                },
-                {
-                    path:"/Stock",
-                    name:"Stock",
-                    icon:<ChecklistRtlIcon />
-                },
-                {
-                    path:"/Service",
-                    name:"Service",
-                    icon:<ReportIcon />
-                },
-                {
-                    path:"/Feedback",
-                    name:"Feedback",
-                    icon:<ExitToAppIcon />
-                },
-                {
-                    path:"/Logout",
-                    name:"Logout",
-                    icon:<AddAlertIcon />
-                },
-                {
-                    path:"/changepassword",
-                    name:"ChangePassword",
-                    icon:<LockResetSharpIcon />
-                }
+        {
+            path:"/User",
+            name:"Users",
+            icon:<PersonOutlineIcon />
+        },
+        {
+            path:"/Sales",
+            name:"Sales",
+            icon:<DomainIcon />
+        },
+        {
+            path:"/Stock",
+            name:"Stock",
+            icon:<ChecklistRtlIcon />
+        },
+        {
+            path:"/Service",
+            name:"Service",
+            icon:<ReportIcon />
+        },
+        {
+            path:"/Feedback",
+            name:"Feedback",
+            icon:<ExitToAppIcon />
+        },
+        {
+            path:"/Logout",
+            name:"Logout",
+            icon:<AddAlertIcon />
+        },
+        {
+            path:"/changepassword",
+            name:"ChangePassword",
+            icon:<LockResetSharpIcon />
+        }
                 
                  
         
