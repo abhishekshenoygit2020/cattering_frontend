@@ -56,7 +56,7 @@ function Login() {
            if(dataResponse.data.userRole == "superuser"){
             navigate('/SuperUserDashboard');         
            }else if(dataResponse.data.userRole == "user"){
-            navigate('/DashboardUser');         
+            navigate('/CustHome');         
            }else{
             navigate('/Dashboard');         
             }           
