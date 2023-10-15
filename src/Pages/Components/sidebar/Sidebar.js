@@ -25,48 +25,11 @@ const Sidebar = ({isOpen, setIsOpen }) => {
             path:"/Dashboard",
             name:"Dashboard",
             icon:<DashboardCustomizeIcon />
-        },   
+        },  
         
-<<<<<<< HEAD
-                {
-                    path:"/Profile",
-                    name:"Profile",
-                     icon:<PersonOutlineIcon />
-                },
-                {
-                    path:"/Sales",
-                    name:"Sales",
-                     icon:<DomainIcon />
-                },
-                {
-                    path:"/Stock",
-                    name:"Stock",
-                    icon:<ChecklistRtlIcon />
-                },
-                {
-                    path:"/Service",
-                    name:"Service",
-                    icon:<ReportIcon />
-                },
-                {
-                    path:"/Feedback",
-                    name:"Feedback",
-                    icon:<ExitToAppIcon />
-                },
-                {
-                    path:"/Logout",
-                    name:"Logout",
-                    icon:<AddAlertIcon />
-                },
-                {
-                    path:"/changepassword",
-                    name:"ChangePassword",
-                    icon:<LockResetSharpIcon />
-                }
-=======
         {
-            path:"/User",
-            name:"Users",
+            path:"/Profile",
+            name:"Profile",
             icon:<PersonOutlineIcon />
         },
         {
@@ -99,7 +62,6 @@ const Sidebar = ({isOpen, setIsOpen }) => {
             name:"ChangePassword",
             icon:<LockResetSharpIcon />
         }
->>>>>>> 131febdbfe605218e9bb2cc37fbabc87b0f0e1c2
                 
                  
         
