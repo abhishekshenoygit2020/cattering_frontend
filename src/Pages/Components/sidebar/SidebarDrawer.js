@@ -98,8 +98,8 @@ export default function SideBarDrawer(){
             //icon:<DashboardCustomizeIcon />
         },
         {
-            path:"/User",
-            name:"Users",
+            path:"/Profile",
+            name:"Profile",
         // icon:<PersonOutlineIcon />
         },
         {

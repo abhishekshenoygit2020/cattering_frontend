@@ -28,8 +28,8 @@ const Sidebar = ({isOpen, setIsOpen }) => {
         },  
         
         {
-            path:"/Profile",
-            name:"Profile",
+            path:"/User",
+            name:"User",
             icon:<PersonOutlineIcon />
         },
         {
