@@ -16,10 +16,12 @@ export const AuthContextProvider = ({children}) => {
     const [userRole, setUserRole] = useState('');
     const [companyCode, setCompanyCode] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);    
-    const [email, setEmail] = useState('');   
+    const [email, setEmail] = useState(''); 
+
     const navigate = useNavigate();
 
     const [trackNo,setTrackno] = useState(''); 
+    
 
     const trackgeneration = (e) => {
         console.log("from auth context");
@@ -31,14 +33,13 @@ export const AuthContextProvider = ({children}) => {
     };
 
     const Login = userData => {
-        setUser(userData.userName); 
-        setUserRole(userData.userRole);        
-        setCompanyCode(userData.companyCode);
-        setEmail(userData.email);
+    
+       
         ApplicationStore().setStorage('token',userData.userToken);
         ApplicationStore().setStorage('userRole',userData.userRole);
         ApplicationStore().setStorage('userCompany',userData.companyCode);
         ApplicationStore().setStorage('empid',userData.empid);
+        ApplicationStore().setStorage('empDetails',userData.empDetails);
         setLoggedIn(true);
     }
 
@@ -66,7 +67,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     return  (
-        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo,email }}>
+        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo}}>
             {children} 
         </AuthContext.Provider>
     )
@@ -74,8 +75,8 @@ export const AuthContextProvider = ({children}) => {
 }
 
 export function useAuthContext(){
-    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo,email} =  useContext(AuthContext);
-    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo,email};
+    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo} =  useContext(AuthContext);
+    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo};
 }
 
 

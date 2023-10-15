@@ -45,13 +45,12 @@ function Login() {
        );       
        const dataResponse = response.data;     
        if(dataResponse.success === 1){
-           const userData = {
-               userName: dataResponse.data.username,
+               const userData = {              
                userToken: dataResponse.data.userToken,
                userRole: dataResponse.data.userRole,
                companyCode:dataResponse.data.userCompany,
                empid:dataResponse.data.empid,
-               email:dataResponse.data.email               
+               empDetails:dataResponse.data.empDetails               
            };
            Login(userData);
            if(dataResponse.data.userRole == "superuser"){

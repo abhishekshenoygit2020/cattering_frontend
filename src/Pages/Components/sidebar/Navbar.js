@@ -20,7 +20,7 @@ const Navbar = ({toggle}) => {
     const handleClose = () => {
         setAnchorEl(null);
         Logout();
-        
+
     };
 
     return(

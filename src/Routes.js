@@ -21,6 +21,7 @@ import RegisterForm from './Pages/Components/RegisterForm';
 import Navbar from './Pages/Components/UserDashboard/Navbar';
 import ChangePassword from './Pages/Components/Login/ChangePassword';
 import ForgotPassword from './Pages/Components/Login/ForgotPassword';
+import Profile from './Pages/Components/Employee/Profile/Profile';
 // import ProtectedRoutes from './Pages/Components/Question/protectedRoutes';
 
 
@@ -40,7 +41,7 @@ const MainRoutes = () => {
                 <Route path="/Sales" element={<FormSal/>}/>
                 <Route path="/Stock" element={<StockDisplay/>}/>
                 <Route path="/ChangePassword" element = {<ChangePassword />} />
-                <Route path="/User" element={<UserList/>}/>
+                <Route path="/Profile" element={<Profile/>}/>
                 <Route path="/Master" element={<DeptTab/>}/>
                 <Route path="/Logs" element={<Logs/>}/>
                 <Route path="/Checklist" element={<CheckTab/>}/>
@@ -55,3 +56,6 @@ export default MainRoutes;
 
 // "email":"abhishekshenoy7@gmail.com",
 //"password":"0i$16eVTS"
+
+
+

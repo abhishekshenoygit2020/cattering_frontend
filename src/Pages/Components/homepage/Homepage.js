@@ -5,7 +5,6 @@ import Sidebar from "../sidebar/Sidebar";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useAuthContext } from "../../../context/AuthContext";
-
 import Navbar from "../sidebar/Navbar";
 
 const Homepage = () => {
