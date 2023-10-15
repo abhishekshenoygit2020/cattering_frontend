@@ -5,6 +5,7 @@ import ApplicationStore from "./utils/localStorageUtil";
 
 const ProtectedRoutes = () => {
     const userToken = ApplicationStore().getStorage('token');
+    const userRole = ApplicationStore().getStorage('token');
     return userToken ? <Outlet /> : <Navigate replace to="/login" />;
 }
 
