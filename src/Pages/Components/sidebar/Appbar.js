@@ -11,10 +11,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
+import { useAuthContext } from '../../../context/AuthContext'; 
 export default function AppBarNav() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { user, Logout } = useAuthContext();
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -85,6 +86,7 @@ export default function AppBarNav() {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={Logout}>Logout</MenuItem>
               </Menu>
             </div>
           )}
