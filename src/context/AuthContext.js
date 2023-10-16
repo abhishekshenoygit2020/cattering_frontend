@@ -16,10 +16,13 @@ export const AuthContextProvider = ({children}) => {
     const [userRole, setUserRole] = useState('');
     const [companyCode, setCompanyCode] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);    
-    const [email, setEmail] = useState('');   
+    const [email, setEmail] = useState(''); 
+    const [cart,setCart] = useState([]);
+
     const navigate = useNavigate();
 
     const [trackNo,setTrackno] = useState(''); 
+    
 
     const trackgeneration = (e) => {
         console.log("from auth context");
@@ -28,17 +31,85 @@ export const AuthContextProvider = ({children}) => {
         setTrackno(num);
         console.log("trackno"+trackNo);
         
-    };
+    };     
+
+
+    const AddToCart = (productData) => {
+        // Assuming cart is an array; make sure it's initialized as an array before using this function
+        if (!Array.isArray(cart)) {
+          console.error('cart is not an array');
+          return;
+        }
+      
+        // Create a copy of the cart array and add the new product
+        let updatedCart = [...cart];
+      
+        // Check if the product is already in the cart
+        const productIndex = updatedCart.findIndex((element) => element.id === productData.id);
+      
+        if (productIndex !== -1) {
+          // Update the quantity of the existing product
+
+          updatedCart[productIndex].quantity += productData.quantity;
+          updatedCart[productIndex].total += productData.total;
+
+        } else {
+          // Add the new product to the cart
+          updatedCart.push(productData);
+        }
+      
+        // Update the cart state with the updated cart
+        setCart(updatedCart);
+
+        ApplicationStore().setStorage('cart',updatedCart);
+      };   
+
+      const removeToCart = (productData) => {
+        // Assuming cart is an array; make sure it's initialized as an array before using this function
+        if (!Array.isArray(cart)) {
+          console.error('cart is not an array');
+          return;
+        }
+      
+        // Create a copy of the cart array
+        let updatedCart = [...cart];
+      
+        // Check if the product is already in the cart
+        const productIndex = updatedCart.findIndex((element) => element.id === productData.id);
+      
+        if (productIndex !== -1) {
+          // Remove the product from the cart
+          updatedCart.splice(productIndex, 1);
+        } else {
+          // Add the new product to the cart
+          updatedCart.push(productData);
+        }
+      
+        // Update the cart state with the updated cart
+        setCart(updatedCart);
+      
+        // Update the cart in the application store
+        ApplicationStore().setStorage('cart', updatedCart);
+      };
+
+
+      
+      
+      
+      
+
+    const getCart = () => {
+        console.log(cart);
+    }
 
     const Login = userData => {
-        setUser(userData.userName); 
-        setUserRole(userData.userRole);        
-        setCompanyCode(userData.companyCode);
-        setEmail(userData.email);
+    
+       
         ApplicationStore().setStorage('token',userData.userToken);
         ApplicationStore().setStorage('userRole',userData.userRole);
         ApplicationStore().setStorage('userCompany',userData.companyCode);
         ApplicationStore().setStorage('empid',userData.empid);
+        ApplicationStore().setStorage('empDetails',userData.empDetails);
         setLoggedIn(true);
     }
 
@@ -66,7 +137,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     return  (
-        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo,email }}>
+        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo,AddToCart,getCart,removeToCart}}>
             {children} 
         </AuthContext.Provider>
     )
@@ -74,8 +145,8 @@ export const AuthContextProvider = ({children}) => {
 }
 
 export function useAuthContext(){
-    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo,email} =  useContext(AuthContext);
-    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo,email};
+    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart} =  useContext(AuthContext);
+    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart};
 }
 
 

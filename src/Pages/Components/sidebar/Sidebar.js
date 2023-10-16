@@ -25,11 +25,11 @@ const Sidebar = ({isOpen, setIsOpen }) => {
             path:"/Dashboard",
             name:"Dashboard",
             icon:<DashboardCustomizeIcon />
-        },   
+        },  
         
         {
-            path:"/User",
-            name:"Users",
+            path:"/Profile",
+            name:"Profile",
             icon:<PersonOutlineIcon />
         },
         {
@@ -132,6 +132,7 @@ const Sidebar = ({isOpen, setIsOpen }) => {
     return(
         <div className="sidebarItem" >
             <div className= "top_section">               
+           
                 <h1 className="logo" style={{ display: isOpen ? 'block' : 'none', marginTop:'35px'}}>Logo</h1>                
             </div>
             <div style={{ padding:'5px 5px', marginLeft:'5px' }}>
@@ -279,7 +280,7 @@ const Sidebar = ({isOpen, setIsOpen }) => {
                                 </NavLink>
                         }                            
                     </>                        
-                ))
+                    ))
 
                    
            }
