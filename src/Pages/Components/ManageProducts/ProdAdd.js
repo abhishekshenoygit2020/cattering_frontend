@@ -11,12 +11,26 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData}) => {
     const [pname, setPname] = useState('');
     const [price, setPrice]= useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setSelectedImage] = useState('');
     const [warranty,setWarrenty] =useState('');
     const [name,setName]=useState('');
     const [categorylist,setCategorylist]=useState([]);
     const [category_id,setCategory_id]=useState('');
-    
+
+
+           
+        const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        setSelectedImage(reader.result);
+        reader.readAsDataURL(file);
+        };
+
+        const handleImageClear = () => {
+            setSelectedImage(null);
+        };
+            
 
 
     const serviceMethod = async (mainURL,method,data,handleSuccess,handleException) => {
@@ -56,7 +70,7 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData}) => {
         setPname(rowData.pname );
         setPrice(rowData.price);
         setDescription(rowData.description );
-        setImage(rowData.image );
+        setSelectedImage(rowData.image );
         setWarrenty(rowData.warranty );
         setDescription(rowData.description );
         setCategory_id(rowData.category_id);
@@ -176,17 +190,17 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData}) => {
                         </Grid> 
                         <Grid item xs={3}>
                             <FormControl fullWidth>                      
-                                <TextField 
-                                    value={image}
-                                    margin = "dense"
-                                    id = "outlined-basic"
-                                    label = "Image"
-                                    variant = "outlined"
-                                    required
-                                    
-                                        onChange={(e) => { setImage(e.target.value)}}
-                                    
-                                />
+                                <div>
+                                    <Input
+                                        type="file"
+                                        inputProps={{ accept: 'image/*' }}
+                                        onChange={handleImageUpload}
+                                    />
+                                    <Button onClick={handleImageClear} disabled={!image}>
+                                        Clear Image
+                                    </Button>
+                                    {image && <img src={image} alt="Uploaded" />}
+                                    </div>
                             </FormControl>
                         </Grid> 
                         

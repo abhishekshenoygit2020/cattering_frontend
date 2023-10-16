@@ -126,6 +126,7 @@ export default function SideBarDrawer(){
                 {
                     path:"/ShowData",
                     name:"Show Data",
+                    openState:true
                     // icon:<DonutLargeIcon />
                 },
             ]
@@ -137,27 +138,27 @@ export default function SideBarDrawer(){
             //icon:<AddAlertIcon />
         },
         {
-            path:"/changepassword",
+            path:"/ChangePassword",
             name:"ChangePassword",
             //icon:<LockResetSharpIcon />
         },
-        {   
-            name:"Admission",
-            path:"",
-            openState:false,
-            childrens: [
-                {
-                    path:"/studentForm",
-                    name:"Register Admission",
-                    // icon:<PlaylistAddIcon />,
-                },
-                {
-                    path:"/tabs",
-                    name:"Upload Document",
-                    // icon:<PublishIcon />
-                }                
-            ]
-        }
+        // {   
+        //     name:"Admission",
+        //     path:"",
+        //     openState:false,
+        //     childrens: [
+        //         {
+        //             path:"/studentForm",
+        //             name:"Register Admission",
+        //             // icon:<PlaylistAddIcon />,
+        //         },
+        //         {
+        //             path:"/tabs",
+        //             name:"Upload Document",
+        //             // icon:<PublishIcon />
+        //         }                
+        //     ]
+        // }
         
     ]); 
 
