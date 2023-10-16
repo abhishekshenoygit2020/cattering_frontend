@@ -158,7 +158,7 @@ const StockDisplay = () => {
 
 
     return  (
-        <div style={{marginTop:'10px', padding:'25px' }}>
+        <div style={{marginTop:'10px', padding:'2px' }}>
             <div className = "topContent">
                 <Box sx={{ flexGrow: 1, padding:'10px' }}>
                     <Grid container spacing={2}>

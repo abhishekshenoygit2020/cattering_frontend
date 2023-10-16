@@ -53,11 +53,17 @@
    overflow-y: scroll;
    overflow-x: hidden;
 }
-:root {
+/* :root {
    --header-height: 3rem;
    --nav-width: 250px;
    --scroll-bar-color: #fff;
    --scroll-bar-bg-color: #8a2525;
+} */
+:root {
+    --header-height: 3rem;
+    --nav-width: 250px;
+    --scroll-bar-color: #fff;
+    --scroll-bar-bg-color: #101542;
 }
  .header{
     position: fixed;
