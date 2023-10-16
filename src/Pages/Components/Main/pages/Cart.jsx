@@ -4,6 +4,8 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../../../../responsive";
+import React, {useEffect,useState} from "react";
+import ApplicationStore from "../../../../utils/localStorageUtil";
 
 const Container = styled.div``;
 
@@ -100,12 +102,12 @@ const PriceDetail = styled.div`
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 `;
 
 const ProductAmount = styled.div`
   font-size: 24px;
-  margin: 5px;
+  margin: 0px;
   ${mobile({ margin: "5px 15px" })}
 `;
 
@@ -125,8 +127,8 @@ const Summary = styled.div`
   flex: 1;
   border: 0.5px solid lightgray;
   border-radius: 10px;
-  padding: 20px;
-  height: 50vh;
+  padding: 10px;
+  height: 20vh;
 `;
 
 const SummaryTitle = styled.h1`
@@ -154,6 +156,33 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const [cartData, setCartData] = useState([]);
+  const applicationStore = ApplicationStore();
+  const [subTotal,setSubTotal] = useState(0);
+ 
+  useEffect(() => {   
+    console.log("helo");
+    loadData();  
+  }, []);
+
+  const loadData = async () => {
+      const cart = await applicationStore.getStorage('cart');
+      // console.log(cart);
+      setCartData(cart);
+      calculateSubTotal(cart);
+  }
+
+  const calculateSubTotal = (cart) => {
+    let total = 0;
+    if(cart.length>0){
+      cart.forEach(item => {
+        total += item.total;
+      });
+
+    }
+    setSubTotal(total);
+  }
+ 
   return (
     <Container>
       <Navbar />
@@ -166,11 +195,70 @@ const Cart = () => {
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          {/* <TopButton type="filled">CHECKOUT NOW {cartData.length}</TopButton> */}
         </Top>
         <Bottom>
           <Info>
-            <Product>
+            {
+               cartData.length>0?cartData.map((item,index) => (     
+                
+                
+                  
+                <Product key={item.id}>
+                  <ProductDetail>
+                    <Image src={item.img} style={{  height:100, width:100 }}/>
+                    <Details>
+                      <ProductName>
+                        <b>Product:</b> {item.name}
+                      </ProductName>
+                      {/* <ProductId>
+                        <b>ID:</b> {item.id}
+                      </ProductId> */}
+                      {/* <ProductColor color="black" /> */}
+                      {/* <ProductSize>
+                        <b>Size:</b> 37.5
+                      </ProductSize> */}
+                    </Details>
+                  </ProductDetail>
+                  {/* <PriceDetail>
+                    <ProductAmountContainer>
+                      <Add />
+                      <ProductAmount>{item.quantity}</ProductAmount>
+                      <Remove />
+                    </ProductAmountContainer>
+                    <ProductPrice>Price : $ {item.price}</ProductPrice>
+                    <ProductPrice>Total : $ {item.total}</ProductPrice>
+                  </PriceDetail> */}
+                   <Summary>
+                    {/* <SummaryTitle>Product SUMMARY</SummaryTitle> */}
+                    <SummaryItem>
+                      <SummaryItemText>Quanity</SummaryItemText>
+                      <SummaryItemPrice><ProductAmountContainer>
+                        <Add />
+                        <ProductAmount>{item.quantity}</ProductAmount>
+                        <Remove />
+                    </ProductAmountContainer></SummaryItemPrice>
+                    </SummaryItem>
+                    <SummaryItem>
+                      <SummaryItemText>Price</SummaryItemText>
+                      <SummaryItemPrice>$  {item.price}</SummaryItemPrice> 
+                    </SummaryItem>
+                    {/* <SummaryItem>
+                      <SummaryItemText>Shipping Discount</SummaryItemText>
+                      <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+                    </SummaryItem> */}
+                    <SummaryItem type="total">
+                      <SummaryItemText>Total</SummaryItemText>
+                      <SummaryItemPrice>$ {item.total}</SummaryItemPrice>
+                      
+                    </SummaryItem>
+                    
+                  </Summary>
+                </Product>
+
+               )):""
+            }
+            {/* <Product>
               <ProductDetail>
                 <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
                 <Details>
@@ -196,6 +284,7 @@ const Cart = () => {
               </PriceDetail>
             </Product>
             <Hr />
+
             <Product>
               <ProductDetail>
                 <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
@@ -220,15 +309,15 @@ const Cart = () => {
                 </ProductAmountContainer>
                 <ProductPrice>$ 20</ProductPrice>
               </PriceDetail>
-            </Product>
+            </Product> */}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
             </SummaryItem>
-            <SummaryItem>
+            {/* <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
               <SummaryItemPrice>$ 5.90</SummaryItemPrice>
             </SummaryItem>
@@ -239,7 +328,7 @@ const Cart = () => {
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ 80</SummaryItemPrice>
-            </SummaryItem>
+            </SummaryItem> */}
             <Button>CHECKOUT NOW</Button>
           </Summary>
         </Bottom>

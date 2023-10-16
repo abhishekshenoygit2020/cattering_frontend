@@ -7,6 +7,7 @@ import Newsletter from "../components/Newsletter";
 import { mobile } from "../../../../responsive";
 import React , {useState, useEffect} from "react";
 import { Link, Outlet, useLocation, useNavigate} from "react-router-dom";
+import { useAuthContext } from '../../../../context/AuthContext';
 
 const Container = styled.div``;
 
@@ -122,6 +123,7 @@ const ProductInfo = () => {
   const {state} = useLocation();
   const {item} = state;
   const [quantity, setQuantity] = useState(0);
+  const { AddToCart, getCart, removeToCart } = useAuthContext();
 
   const updateQuatity = (type) => {
       // console.log(type);
@@ -130,13 +132,43 @@ const ProductInfo = () => {
           alert("quantity cannot be less than 1");
         }else{
           setQuantity(quantity-1);
-        }
-       
+        }       
       }
 
       if(type == "inc"){
         setQuantity(quantity+1);
       }
+  }
+
+  const cartData = () => {
+      const productData = {
+         id:item.id,
+         name:item.name,
+         img:item.img,
+         price:item.price,
+         quantity:quantity,
+         total:item.price*quantity
+      };
+
+      AddToCart(productData);
+     
+     console.log("add to cart");
+  }
+
+
+  const removeData = () => {
+      const productData = {
+        id:item.id,
+        name:item.name,
+        img:item.img,
+        price:item.price,
+        quantity:quantity,
+        total:item.price*quantity
+      };
+
+      removeToCart(productData);
+  
+      console.log("remove to cart");
   }
 
   return (
@@ -177,7 +209,9 @@ const ProductInfo = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={(e) => {updateQuatity("inc")}} />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={cartData}>ADD TO CART</Button>
+            <Button onClick={getCart}>Get Cart</Button>
+            <Button onClick={removeData}>Remove</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
