@@ -142,11 +142,7 @@ const ProdDisplay = () => {
                }
              
          }catch(err){
-        // try{
-        //     let URL='./auth/getUser';
-        //     const response = await axios.get( URL );            
-        //     setDataList(response.data.data || '');
-        // }catch(err){
+       
             if(!err?.response){
                 console.log("No server response");
             }else{

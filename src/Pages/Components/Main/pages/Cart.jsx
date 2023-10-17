@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../../../../responsive";
 import React, {useEffect,useState} from "react";
+import Newsletter from "../components/Newsletter";
 import ApplicationStore from "../../../../utils/localStorageUtil";
 
 const Container = styled.div``;
@@ -333,6 +334,7 @@ const Cart = () => {
           </Summary>
         </Bottom>
       </Wrapper>
+      <Newsletter />
       <Footer />
     </Container>
   );

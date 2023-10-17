@@ -116,23 +116,28 @@ export default function SideBarDrawer(){
             //icon:<ChecklistRtlIcon />
         },
         {
-            path:"/Service",
-            name:"Service",
+            path:"/ServiceRequest",
+            name:"Service Request",
             //icon:<ReportIcon />
         },
         {
-            path:"",
+            path:"/ServiceHistory",
+            name:"Service History",
+            //icon:<ReportIcon />
+        },
+        {
+            path:"/FeedbackUser",
             name:"Feedback",
-            openState:false,
+            // openState:false,
             //icon:<ExitToAppIcon />
-            childrens: [                
-                {
-                    path:"/ShowData",
-                    name:"Show Data",
-                    openState:true
-                    // icon:<DonutLargeIcon />
-                },
-            ]
+            // childrens: [                
+            //     {
+            //         path:"/ShowData",
+            //         name:"Show Data",
+            //         openState:true
+            //         // icon:<DonutLargeIcon />
+            //     },
+            // ]
 
         },
         {
@@ -202,7 +207,7 @@ export default function SideBarDrawer(){
            // icon:<SettingsIcon />
         },
         {
-            path:"/Feedback",
+            path:"/FeedbackUser",
             name:"Feedback",
            // icon:<SettingsIcon />
         },
@@ -255,7 +260,7 @@ export default function SideBarDrawer(){
                                 text.childrens ? 
                                 <div>
                                     <Link to ={text.path} style={{ textDecoration: 'none' }}  onClick={(e) => {setSidebarIndex(index)}} >
-                                        <ListItem key={text} disablePadding sx={{ display: 'block' }} onClick = {(e)=> {trackgeneration(e)}} >
+                                        <ListItem key={text} disablePadding sx={{ display: 'block' }}  >
                                             <ListItemButton
                                                 sx={{
                                                 minHeight: 10,                                  

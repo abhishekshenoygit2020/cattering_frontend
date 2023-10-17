@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from "react";
-import { Button, Dialog, DialogContent, DialogTitle, FormControl, Input, InputLabel, MenuItem, Select, TextField, Grid } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, FormControl, TextField, Grid } from '@mui/material';
 import DialogActions from '@mui/material/DialogActions';
 import axios from '../../../../api/axios';
 const URL = './organisation';
@@ -185,34 +185,7 @@ const Addorg = ({ open, setOpen, isAddButton, rowData, setRefreshData}) => {
                             </FormControl>
                         </Grid>
                         
-                        <Grid item xs={3}>
-                            <FormControl fullWidth>                      
-                                {/* <TextField 
-                                    value={logo}
-                                    margin = "dense"
-                                    id = "outlined-basic"
-                                    label = "logo"
-                                    variant = "outlined"
-                                    fullWidth
-                                    required
-                                    error={!!logoError}
-                                    helperText={logoError}
-                                    onChange={(e) => { setLogo(e.target.value)}}
-                                                       
-                                /> */}
-                                {/* <div>
-                                    <Input
-                                        type="file"
-                                        inputProps={{ accept: 'image/*' }}
-                                        onChange={handleImageUpload}
-                                    />
-                                    <Button onClick={handleImageClear} disabled={!selectedImage}>
-                                        Clear Image
-                                    </Button>
-                                    {selectedImage && <img src={selectedImage} alt="Uploaded" />}
-                                    </div> */}
-                            </FormControl>
-                        </Grid> 
+                       
                     </Grid>
                 </Grid>                  
                                   

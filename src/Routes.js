@@ -27,11 +27,15 @@ import Home from './Pages/Components/homepage/Home';
 import Cart from './Pages/Components/Main/pages/Cart';
 import HomeMain from './Pages/Components/Main/pages/Home';
 import LoginCust from './Pages/Components/Main/pages/Login';
-
+import Feedback from './Pages/Components/Main/pages/Feedback';
+import FeedbackUser from './Pages/Components/Employee/ManageFeedback/FeedbackUser';
 import ProductList from './Pages/Components/Main/pages/ProductList';
 import ProductInfo from './Pages/Components/Main/pages/ProductInfo';
 import Register from './Pages/Components/Main/pages/Register';
 import HomeCust from './Pages/Components/homepage/HomeCust';
+import Service from './Pages/Components/Main/pages/Service';
+import ServiceRequest from './Pages/Components/Employee/ManageService/ServiceRequest';
+import ServiceHistory from './Pages/Components/Employee/ManageService/ServiceHistory';
 
 // import ProtectedRoutes from './Pages/Components/Question/protectedRoutes';
 
@@ -50,6 +54,8 @@ const MainRoutes = () => {
                   <Route path="/Cart" element={<Cart />} />
                   <Route path="/Product" element={<ProductInfo />} />
                   <Route path="/ProductList" element={<ProductList />} />
+                  <Route path="/Feedback" element={<Feedback />} />
+                  <Route path="/Service" element={<Service/>}/>
               </Route>        
               <Route element={<ProtectedRoutes />}>         
                 <Route path="/" element={<Home />} >
@@ -65,7 +71,10 @@ const MainRoutes = () => {
                 <Route path="/Master" element={<DeptTab/>}/>
                 <Route path="/Logs" element={<Logs/>}/>
                 <Route path="/Checklist" element={<CheckTab/>}/>
-                {/* <Route path="/DashboardUser" element={<AteRemoteMonitoring />}/>  */}
+                <Route path="/FeedbackUser" element={<FeedbackUser/>}/>
+                <Route path="/ServiceRequest" element={<ServiceRequest/>}/>
+                <Route path="/ServiceHistory" element={<ServiceHistory/>}/>
+
               </Route>
               <Route path="/DashboardUser" element={<Navbar/>}/> 
             </Route>                      
