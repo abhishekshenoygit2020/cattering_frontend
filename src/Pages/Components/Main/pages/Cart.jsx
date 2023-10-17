@@ -7,6 +7,7 @@ import { mobile } from "../../../../responsive";
 import React, {useEffect,useState} from "react";
 import Newsletter from "../components/Newsletter";
 import ApplicationStore from "../../../../utils/localStorageUtil";
+import { useAuthContext } from "../../../../context/AuthContext";
 
 const Container = styled.div``;
 
@@ -160,6 +161,7 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
   const applicationStore = ApplicationStore();
   const [subTotal,setSubTotal] = useState(0);
+  const { url } = useAuthContext();
  
   useEffect(() => {   
     console.log("helo");
@@ -207,7 +209,7 @@ const Cart = () => {
                   
                 <Product key={item.id}>
                   <ProductDetail>
-                    <Image src={item.img} style={{  height:100, width:100 }}/>
+                    <Image src={url+item.img} style={{  height:100, width:100 }}/>
                     <Details>
                       <ProductName>
                         <b>Product:</b> {item.name}

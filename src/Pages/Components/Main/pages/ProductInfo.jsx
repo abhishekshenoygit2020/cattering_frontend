@@ -123,7 +123,7 @@ const ProductInfo = () => {
   const {state} = useLocation();
   const {item} = state;
   const [quantity, setQuantity] = useState(0);
-  const { AddToCart, getCart, removeToCart } = useAuthContext();
+  const { AddToCart, getCart, removeToCart,url } = useAuthContext();
 
   const updateQuatity = (type) => {
       // console.log(type);
@@ -177,7 +177,7 @@ const ProductInfo = () => {
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Image src={item.img} />
+          <Image src={url+item.img} />
         </ImgContainer>
         <InfoContainer>
           <Title>{item.name}</Title>
