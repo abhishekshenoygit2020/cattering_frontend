@@ -1,11 +1,16 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../../../../responsive";
 import { Link, Outlet, NavLink } from "react-router-dom"; 
-
+import TextField from '@mui/material/TextField';
 import { useAuthContext } from "../../../../context/AuthContext";
+import { useNavigate } from 'react-router-dom';
+import axios from "../../../../api/axios";
+const URL = './products/search';
+
+
 
 const Container = styled.div`
   height: 60px;
@@ -33,11 +38,12 @@ const Language = styled.span`
 `;
 
 const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
+  border: 0.0px solid lightgray;
   display: flex;
   align-items: center;
   margin-left: 25px;
-  padding: 5px;
+  margin-top: -10px;  
+  padding-bottom: 0px;
 `;
 
 const Input = styled.input`
@@ -71,14 +77,61 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const { user, Logout } = useAuthContext();
+  const navigate = useNavigate();
+  const [searchedData, setSearchedData] = useState('');
+
+  const getData = async () => {
+    console.log(searchedData);
+    const data = {searchedData};  
+      try{
+        const response = await axios.post( URL,data,
+          {
+             headers: {'Content-Type':'application/json' }                    
+          }); 
+          if(response.data.status == 401){
+              // setDataList('');      
+          }else{
+              //setDataList(response.data.data);
+              navigate('/ProductList', { state: { searchedData:response.data.data }});
+              
+              //console.log(response.data.data);
+
+          }
+        
+    }catch(err){    
+      if(!err?.response){
+          console.log("No server response");
+      }else{
+            console.log(err?.response.data);
+      }
+  } 
+  };
+
+ 
+
   return (
     <Container>
       <Wrapper>
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: 16 }} />
+            <TextField
+              margin="normal"
+              fullWidth
+              size="small"
+              id="email"
+              label="Search"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={searchedData}
+              onChange={(e) => {
+                setSearchedData(e.target.value);
+              }}
+              required
+              className="custom-textfield" // Apply your CSS class here
+            />
+            <Search onClick={getData} style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
         </Left>
         <Center>
