@@ -14,11 +14,11 @@ const URL = './feedback';
 const FeedbackUser = () => {    
 
     const columns = [
-        { field: "id", headerName: "ID", width: 70 },
-        { field: "pname", headerName: "product name", width: 130 },
-        { field: "feedback", headerName: "feedback", width: 130 },
-        { field: "date", headerName: "date", width: 130 },
-        { field: "status", headerName: "status", width: 130 },  
+        { field: "id", headerName: "ID", width: 150 },
+        { field: "pname", headerName: "product name", width: 200 },
+        { field: "feedback", headerName: "feedback", width: 200 },
+        { field: "date", headerName: "date", width: 250 },
+        { field: "status", headerName: "status", width: 200 },  
     ];
    
   
