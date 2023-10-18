@@ -36,6 +36,10 @@ import HomeCust from './Pages/Components/homepage/HomeCust';
 import Service from './Pages/Components/Main/pages/Service';
 import ServiceRequest from './Pages/Components/Employee/ManageService/ServiceRequest';
 import ServiceHistory from './Pages/Components/Employee/ManageService/ServiceHistory';
+import SalesHistory from './Pages/Components/Employee/Sales/SalesHistory';
+import ServiceReport from './Pages/Components/Admin/Service/ServiceReport';
+import OnlineSales from './Pages/Components/Admin/Online/OnlineSales';
+import OfflineSales from './Pages/Components/Admin/Offline/OfflineSales';
 
 // import ProtectedRoutes from './Pages/Components/Question/protectedRoutes';
 
@@ -74,7 +78,10 @@ const MainRoutes = () => {
                 <Route path="/FeedbackUser" element={<FeedbackUser/>}/>
                 <Route path="/ServiceRequest" element={<ServiceRequest/>}/>
                 <Route path="/ServiceHistory" element={<ServiceHistory/>}/>
-
+                <Route path="/SalesHistory" element={<SalesHistory/>}/>
+                <Route path="/ServiceReport" element={<ServiceReport/>}/>
+                <Route path="/Online" element={<OnlineSales/>}/>
+                <Route path="/Offline" element={<OfflineSales/>}/>
               </Route>
               <Route path="/DashboardUser" element={<Navbar/>}/> 
             </Route>                      
@@ -85,6 +92,21 @@ export default MainRoutes;
 
 // "email":"abhishekshenoy7@gmail.com",
 //"password":"0i$16eVTS"
+
+//employee:
+//task to be done in employee.
+//sales datagrid to refresh when trackno changes.
+//sales history with 2 get method dont display datagrid.
+//profile update using local storage.
+
+
+//admin:
+//image not uploading
+//2 get method dont display
+//monthly sales report
+//
+
+
 
 
 
