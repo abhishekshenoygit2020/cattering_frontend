@@ -94,81 +94,66 @@ export default function SideBarDrawer(){
     
     const [active, setActive ] = React.useState(false);    
 
-    const  [menuItemsAdmin,setMenuItemsAdmin] = React.useState([
-        {
-            path:"/Dashboard",
-            name:"Dashboard",
-            //icon:<DashboardCustomizeIcon />
-        },
-        {
-            path:"/Profile",
-            name:"Profile",
+   const menuItemsAdmin = [
+    {
+        path: "/Dashboard",
+        name: "Dashboard",
+        // icon:<DashboardCustomizeIcon />
+    },
+    {
+        path: "/Profile",
+        name: "Profile",
         // icon:<PersonOutlineIcon />
-        },
-        {
-            path:"/Sales",
-            name:"Sales",
-            //icon:<DomainIcon />
-        },
-        {
-            path:"/Stock",
-            name:"Stock",
-            //icon:<ChecklistRtlIcon />
-        },
-        {
-            path:"/ServiceRequest",
-            name:"Service Request",
-            //icon:<ReportIcon />
-        },
-        {
-            path:"/ServiceHistory",
-            name:"Service History",
-            //icon:<ReportIcon />
-        },
-        {
-            path:"/FeedbackUser",
-            name:"Feedback",
-            // openState:false,
-            //icon:<ExitToAppIcon />
-            // childrens: [                
-            //     {
-            //         path:"/ShowData",
-            //         name:"Show Data",
-            //         openState:true
-            //         // icon:<DonutLargeIcon />
-            //     },
-            // ]
-
-        },
-        {
-            path:"/Logout",
-            name:"Logout",
-            //icon:<AddAlertIcon />
-        },
-        {
-            path:"/ChangePassword",
-            name:"ChangePassword",
-            //icon:<LockResetSharpIcon />
-        },
-        // {   
-        //     name:"Admission",
-        //     path:"",
-        //     openState:false,
-        //     childrens: [
-        //         {
-        //             path:"/studentForm",
-        //             name:"Register Admission",
-        //             // icon:<PlaylistAddIcon />,
-        //         },
-        //         {
-        //             path:"/tabs",
-        //             name:"Upload Document",
-        //             // icon:<PublishIcon />
-        //         }                
-        //     ]
-        // }
-        
-    ]); 
+    },
+    {
+        path: "/Sales",
+        name: "Sales",
+        // icon:<DomainIcon />
+    },
+    {
+        path: "/Stock",
+        name: "Stock",
+        // icon:<ChecklistRtlIcon />
+    },
+    {
+        path: "/ServiceRequest",
+        name: "Service Request",
+        // icon:<ReportIcon />
+    },
+    {
+        path: "/ServiceHistory",
+        name: "Service History",
+        // icon:<ReportIcon />
+    },
+    {
+        path: "/FeedbackUser",
+        name: "Feedback",
+        openState: false,
+        // icon:<ExitToAppIcon />
+        childrens: [
+            {
+                path: "/AddFeedback",
+                name: "Add Feedback",
+                // icon: <AddIcon />
+            },
+            {
+                path: "/ViewFeedback",
+                name: "View Feedback",
+                // icon: <ViewIcon />
+            },
+        ],
+    },
+    {
+        path: "/Logout",
+        name: "Logout",
+        // icon:<AddAlertIcon />
+    },
+    {
+        path: "/ChangePassword",
+        name: "ChangePassword",
+        // icon:<LockResetSharpIcon />
+    },
+];
 
     const menuItemsSuperuser=[
         {
@@ -258,87 +243,81 @@ export default function SideBarDrawer(){
                         userRole == "admin" ?                     
                             menuItemsAdmin.map((text, index) => ( 
                                 text.childrens ? 
-                                <div>
-                                    <Link to ={text.path} style={{ textDecoration: 'none' }}  onClick={(e) => {setSidebarIndex(index)}} >
-                                        <ListItem key={text} disablePadding sx={{ display: 'block' }}  >
-                                            <ListItemButton
-                                                sx={{
-                                                minHeight: 10,                                  
-                                                justifyContent: open ? 'initial' : 'center',
-                                                px: 2.5,
-                                                bgcolor: index === sidebarIndex ? "rgba(255, 255, 255, 0.04)" : "",
-                                                borderRadius: open ? '10px' : '',  
-                                                "&: hover":{
-                                                    backgroundColor:'rgba(255, 255, 255, 0.04)'
-                                                }
-                                                }}
-                                            >
-                                                <ListItemIcon
-                                                    sx={{
-                                                        minWidth: 0,
-                                                        mr: open ? 3 : 'auto',
-                                                        justifyContent: 'center',  
-                                                        color:index === sidebarIndex ? 'white':'#0745bbf0'                                                                                      
-                                                    }}
-                                                >
-                                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                                </ListItemIcon>                                
-                                                <ListItemText primary={text.name} sx={{ opacity: open ? 10 : 0 , color:"white", }} />  
-                                                {
-                                                    text.childrens ? 
-                                                    <ListItemIcon
-                                                        sx={{
-                                                            minWidth: 0,
-                                                            mr: open ? 3 : 'auto',
-                                                            justifyContent: 'center',
-                                                            color:index === sidebarIndex ? 'white':'#0745bbf0'                                
-                                                        }}
-                                                    >
-                                                        <IconButton onClick={handleSubList} style={{ color:"white"  }}>
-                                                            {openSubList === true &&  sidebarIndex == index ? <ExpandMoreIcon /> : <ExpandLessIcon /> } 
-                                                        </IconButton>
-                                                    </ListItemIcon> :""
-                                                }                                       
-                                            </ListItemButton>
-                                        </ListItem> 
-                                    </Link>
-                                    {
-                                        text.openState == true ?  
-                                            text.childrens.map((childText, index) => (
-                                                <Link to ={childText.path} style={{ textDecoration: 'none' }}  onClick={(e) => {setSidebarIndex(index)}} >
-                                                    <ListItem key={childText} disablePadding sx={{ display: 'block', height: 50 }} onClick = {(e)=> { trackgeneration(e);}} >
-                                                        <ListItemButton
-                                                            sx={{                                        
-                                                            justifyContent: open ? 'initial' : 'center',
-                                                            px: 2.5,                                  
-                                                            bgcolor: index === sidebarIndex ? "rgba(255, 255, 255, 0.04)" : "",
-                                                            borderRadius: open ? '10px' : '',                               
-                                                            "&: hover":{
-                                                                backgroundColor:'rgba(255, 255, 255, 0.04)'
-                                                            }
-                                                            }}
-                                                        >
-                                                            <ListItemIcon
-                                                                sx={{
-                                                                    minWidth: 0,
-                                                                    mr: open ? 3 : 'auto',
-                                                                    justifyContent: 'center',
-                                                                    color:index === sidebarIndex ? 'white':'#0745bbf0'                                
-                                                                }}
-                                                            >
-                                                            {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                                                            </ListItemIcon>                                
-                                                            <ListItemText primary={childText.name} sx={{ opacity: open ? 10 : 0 , color:"white" }} />                                                                          
-                                                        </ListItemButton>
-                                                    </ListItem>                                                      
-                                                </Link>
-                                        ))
-                                        
-                                        :"" 
-                                    
-                                    }
-                                    
-                                </div> 
+                                <div key={text.name}> {/* Make sure to add a unique key */}
+    <Link to={text.path} style={{ textDecoration: 'none' }} onClick={() => setSidebarIndex(index)}>
+      <ListItem disablePadding sx={{ display: 'block' }}>
+        <ListItemButton
+          sx={{
+            minHeight: 10,
+            justifyContent: open ? 'initial' : 'center',
+            px: 2.5,
+            bgcolor: index === sidebarIndex ? "rgba(255, 255, 255, 0.04)" : "",
+            borderRadius: open ? '10px' : '',
+            "&:hover": {
+              backgroundColor: 'rgba(255, 255, 255, 0.04)'
+            }
+          }}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: open ? 3 : 'auto',
+              justifyContent: 'center',
+              color: index === sidebarIndex ? 'white' : '#0745bbf0'
+            }}
+          >
+            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+          </ListItemIcon>
+          <ListItemText primary={text.name} sx={{ opacity: open ? 10 : 0, color: "white" }} />
+          {text.childrens ? (
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+                color: index === sidebarIndex ? 'white' : '#0745bbf0'
+              }}
+            >
+              <IconButton onClick={() => handleSubList(index)} style={{ color: "white" }}>
+                {openSubList && sidebarIndex === index ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+              </IconButton>
+            </ListItemIcon>
+          ) : ""}
+        </ListItemButton>
+      </ListItem>
+    </Link>
+    {text.childrens && openSubList && sidebarIndex === index ? (
+      text.childrens.map((childText, childIndex) => (
+        <Link to={childText.path} style={{ textDecoration: 'none' }} onClick={() => setSidebarIndex(childIndex)}>
+          <ListItem key={childText} disablePadding sx={{ display: 'block', height: 50 }} onClick={(e) => { trackgeneration(e); }}>
+            <ListItemButton
+              sx={{
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+                bgcolor: childIndex === sidebarIndex ? "rgba(255, 255, 255, 0.04)" : "",
+                borderRadius: open ? '10px' : '',
+                "&:hover": {
+                  backgroundColor: 'rgba(255, 255, 255, 0.04)'
+                }
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                  color: childIndex === sidebarIndex ? 'white' : '#0745bbf0'
+                }}
+              >
+                {/* Add appropriate icons here */}
+              </ListItemIcon>
+              <ListItemText primary={childText.name} sx={{ opacity: open ? 10 : 0, color: "white" }} />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      ))
+    ) : null}
+  </div>
                                                     
                                 :<Link to ={text.path} style={{ textDecoration: 'none' }}  onClick={(e) => {setSidebarIndex(index)}} >
                                     <ListItem key={text} disablePadding sx={{ display: 'block', height: 50 }} onClick = {(e)=> {trackgeneration(e)}} >
