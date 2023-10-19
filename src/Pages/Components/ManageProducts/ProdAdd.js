@@ -11,26 +11,19 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData}) => {
     const [pname, setPname] = useState('');
     const [price, setPrice]= useState('');
     const [description, setDescription] = useState('');
-    const [image, setSelectedImage] = useState('');
+    const [image, setImage] = useState('');
     const [warranty,setWarrenty] =useState('');
     const [name,setName]=useState('');
     const [categorylist,setCategorylist]=useState([]);
     const [category_id,setCategory_id]=useState('');
 
 
-           
-        const handleImageUpload = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
+       
 
-        setSelectedImage(reader.result);
-        reader.readAsDataURL(file);
-        };
-
-        const handleImageClear = () => {
-            setSelectedImage(null);
-        };
-            
+    const handleImageClear = () => {
+        setImage(null);
+    };
+        
 
 
     const serviceMethod = async (mainURL,method,data,handleSuccess,handleException) => {
@@ -69,8 +62,8 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData}) => {
         setId(rowData.id );
         setPname(rowData.pname );
         setPrice(rowData.price);
-        setDescription(rowData.description );
-        setSelectedImage(rowData.image );
+        setDescription(rowData.description);
+        setImage(rowData.image);
         setWarrenty(rowData.warranty );
         setDescription(rowData.description );
         setCategory_id(rowData.category_id);
@@ -190,7 +183,7 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData}) => {
                         </Grid> 
                         <Grid item xs={3}>
                             <FormControl fullWidth>                      
-                                <div>
+                                {/* <div>
                                     <Input
                                         type="file"
                                         inputProps={{ accept: 'image/*' }}
@@ -200,7 +193,33 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData}) => {
                                         Clear Image
                                     </Button>
                                     {image && <img src={image} alt="Uploaded" />}
-                                    </div>
+                                </div> */}
+                                <TextField
+                                    fullWidth
+                                    label="Product Image"
+                                    
+                                    onBlur={() => {
+                                    //validateForNullValue(customerLogo, 'customerLogo');
+                                    }}
+                                    onChange={(e) => {
+                                    if(e.target.files && e.target.files.length > 0){
+                                        setImage(e.target.files[0]);
+                                        const reader = new FileReader();
+                                        reader.onload = () =>{
+                                            if(reader.readyState === 2){
+                                                setImage(reader.result);
+                                            //   setPreviewBuilding(reader.result);
+                                            }
+                                        }
+                                        reader.readAsDataURL(e.target.files[0]);
+                                    }
+                                    }}
+                                    InputLabelProps={{ shrink: true }}
+                                    type="file"
+                                    // inputProps={{
+                                    //     accept:"image/png",
+                                    // }}
+                                />
                             </FormControl>
                         </Grid> 
                         

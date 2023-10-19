@@ -170,7 +170,7 @@ const Cart = () => {
 
   const loadData = async () => {
       const cart = await applicationStore.getStorage('cart');
-      // console.log(cart);
+      console.log(cart);
       setCartData(cart);
       calculateSubTotal(cart);
   }
@@ -185,6 +185,37 @@ const Cart = () => {
     }
     setSubTotal(total);
   }
+
+  // const removeProduct = (index) => {
+  //   const updatedProduct = [...cartData];
+  //   updatedProduct.splice(index, 1);
+  //   setCartData(updatedProduct);
+  //   applicationStore.setStorage('cart', updatedProduct);
+  // };
+
+  const updateProduct = (index,type) => {
+    if(type == "add"){
+      console.log(index+" add");
+      const updatedCart = [...cartData];
+      updatedCart[index].quantity = updatedCart[index].quantity+1;
+      updatedCart[index].total = updatedCart[index].quantity*updatedCart[index].price;
+      setCartData(updatedCart);
+      applicationStore.setStorage('cart', updatedCart);
+      calculateSubTotal(updatedCart);
+
+    }else{
+      console.log(index+" sub");
+      const updatedCart = [...cartData];
+      updatedCart[index].quantity = updatedCart[index].quantity == 0 ? 0 : updatedCart[index].quantity-1;
+      updatedCart[index].total = updatedCart[index].quantity*updatedCart[index].price;
+      setCartData(updatedCart);
+      applicationStore.setStorage('cart', updatedCart);
+      calculateSubTotal(updatedCart);
+    }
+    
+
+  };
+
  
   return (
     <Container>
@@ -203,8 +234,7 @@ const Cart = () => {
         <Bottom>
           <Info>
             {
-               cartData.length>0?cartData.map((item,index) => (     
-                
+               cartData.length>0?cartData.map((item,index) => (                    
                 
                   
                 <Product key={item.id}>
@@ -237,9 +267,9 @@ const Cart = () => {
                     <SummaryItem>
                       <SummaryItemText>Quanity</SummaryItemText>
                       <SummaryItemPrice><ProductAmountContainer>
-                        <Add />
+                        <Add onClick={() => {updateProduct(index,"add")}}/>
                         <ProductAmount>{item.quantity}</ProductAmount>
-                        <Remove />
+                        <Remove onClick={() => {updateProduct(index,"sub")}}/>
                     </ProductAmountContainer></SummaryItemPrice>
                     </SummaryItem>
                     <SummaryItem>
