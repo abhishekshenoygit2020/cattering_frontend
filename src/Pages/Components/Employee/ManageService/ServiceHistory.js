@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dialog, DialogContent, DialogTitle, FormControl, TextField, Grid } from '@mui/material';
-import DialogActions from '@mui/material/DialogActions';
 import Box from '@mui/material/Box';
-import EditIcon from '@material-ui/icons/Edit';
 import { DataGrid } from '@mui/x-data-grid';
-
 import axios from "../../../../api/axios";
-const URL = './service/solved';
+const URL = './service/getdatasolve';
 
 const ServiceHistory = () => {    
 
@@ -21,11 +17,7 @@ const ServiceHistory = () => {
         { field: "status", headerName: "status", width: 130 },
         
     ];
-
    
-
-    
-  
     const [dataList, setDataList] = useState([]);        
     const [refreshData, setRefreshData] = useState(false);
     
@@ -53,9 +45,7 @@ const ServiceHistory = () => {
     
 
     return  (
-        <>
-            
-            
+        <>    
             <div style={{ marginTop: '10px', padding: '2px' }}>
                 <div className="GridContent">
                     <Box sx={{ flexGrow: 1, padding: '0px', height: 400, width: '100%' }} >                    

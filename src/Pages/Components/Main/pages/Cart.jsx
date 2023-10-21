@@ -5,10 +5,16 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../../../../responsive";
 import React, {useEffect,useState} from "react";
+import { useNavigate } from 'react-router-dom';
 import Newsletter from "../components/Newsletter";
 import ApplicationStore from "../../../../utils/localStorageUtil";
+<<<<<<< HEAD
 import { useAuthContext } from "../../../../context/AuthContext";
+=======
+import axios from "../../../../api/axios";
+>>>>>>> usercart
 
+const URL = './checkout';
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -158,6 +164,8 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const empid=ApplicationStore().getStorage("empid");
+  const navigate = useNavigate();
   const [cartData, setCartData] = useState([]);
   const applicationStore = ApplicationStore();
   const [subTotal,setSubTotal] = useState(0);
@@ -215,6 +223,48 @@ const Cart = () => {
     
 
   };
+
+ 
+  const serviceMethod = async(mainURL,method,data,handleSuccess,handleException)=>{
+    
+    try{
+      const response = await axios.post(mainURL,data);
+          return handleSuccess(response.data);
+    }
+    catch(err){
+      if(!err?.response){
+          console.log("No server response");                
+      }else{                
+          return handleException(err?.response.data);
+      }
+  }           
+  };
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const method = "POST";
+    const newTrackId = latestTrackId + 1;
+    setLatestTrackId(newTrackId);
+    try {        
+        const data = {userid:empid,trackid:newTrackId};
+        const mainURL = URL+'/add';
+        serviceMethod(mainURL,method,data, handleSuccess, handleException);
+    }
+    catch(e){
+        console.error(e);
+        
+    } 
+};   
+    
+
+const handleSuccess = (data) => {         
+  
+  alert("successfully added");
+  navigate('/Checkout');      
+}
+
+const handleException = (data) => {
+  console.log(data);
+}
 
  
   return (
@@ -362,7 +412,7 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ 80</SummaryItemPrice>
             </SummaryItem> */}
-            <Button>CHECKOUT NOW</Button>
+            <Button onClick={handleSubmit}>CHECKOUT NOW</Button>
           </Summary>
         </Bottom>
       </Wrapper>
