@@ -17,7 +17,7 @@ const URL = './userRegister';
 
 export default function Profile() {
   
-  const empDetails=ApplicationStore().getStorage("empDetails");
+ 
 
   const [id, setId] = useState(''); // If needed
   const [firstName, setFirstName] = useState('');
@@ -28,17 +28,37 @@ export default function Profile() {
   const [designation, setDesignation] = useState('');
   const [address, setAddress] = useState('');
 
-  useEffect(() => {
-    if(empDetails){
-        setFirstName(empDetails.firstName);
-        setLastName(empDetails.lastName);
-        setUserName(empDetails.username);
-        setEmail(empDetails.email);
-        setContact(empDetails.contact);
-        setDesignation(empDetails.designation);
-        setAddress(empDetails.address);
-    }
-  },[empDetails]);
+  useEffect(() => {   
+    loadData();
+  },[]);
+
+
+  const loadData = async () => {  
+    // console.log(searchedData.searchedData);    
+      try{
+            const response = await axios.get('auth/getUserById'); 
+              if(response.data.status == 401){
+                  
+              }else{
+                setFirstName(response.data.data[0].first_name);
+                setLastName(response.data.data[0].last_name);
+                setUserName(response.data.data[0].username);
+                setEmail(response.data.data[0].email);
+                setContact(response.data.data[0].contact);
+                setDesignation(response.data.data[0].designation);
+                setAddress(response.data.data[0].address);
+                 
+              }
+            
+        }catch(err){    
+          if(!err?.response){
+              console.log("No server response");
+          }else{
+                console.log(err?.response.data);
+          }
+      }    
+ };
+
 
   const serviceMethod = async (mainURL,method,data,handleSuccess,handleException) => {
     try{
@@ -58,20 +78,21 @@ const handleSubmit = (e) => {
     const method = "POST";
     try{      
         const data = {first_name:firstName,last_name:lastName,username:username,email,contact,designation,address};
-        const mainURL = URL+'/add';
+        const mainURL = 'auth/updateUserByID';
         serviceMethod(mainURL,method,data, handleSuccess,handleException);
     }catch(e){
-    console.error(e);}
-    } 
+      console.error(e);
+    }
+  } 
 
-    const handleSuccess = (data) => {         
+  const handleSuccess = (data) => {         
         console.log(data);
          
-    }
+  }
 
-    const handleException = (data) => {
+  const handleException = (data) => {
         console.log(data);
-    }
+  }
 
 
 
