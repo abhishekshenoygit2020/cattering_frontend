@@ -8,11 +8,8 @@ import React, {useEffect,useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import Newsletter from "../components/Newsletter";
 import ApplicationStore from "../../../../utils/localStorageUtil";
-<<<<<<< HEAD
 import { useAuthContext } from "../../../../context/AuthContext";
-=======
 import axios from "../../../../api/axios";
->>>>>>> usercart
 
 const URL = './checkout';
 const Container = styled.div``;
