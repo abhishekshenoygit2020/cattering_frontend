@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
 import axios from "../../../../api/axios";
-const URL = './purchase/online';
+const URL = './purchase/';
 
 const OnlineSales = () => {    
 
@@ -19,8 +19,9 @@ const OnlineSales = () => {
         { field: "user_pin", headerName: "pin", width: 130 },
         { field: "payment_no", headerName: "payment_no", width: 130 },
         { field: "payment_method", headerName: "payment_method", width: 130 },
+        { field: "amount", headerName: "amount", width: 130 },
         { field: "date", headerName: "date", width: 130 },
-        // { field: "amount", headerName: "amount", width: 130 },
+        
     ];
 
     const [dataList, setDataList] = useState([]);        

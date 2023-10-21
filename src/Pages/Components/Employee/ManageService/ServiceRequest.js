@@ -4,9 +4,10 @@ import DialogActions from '@mui/material/DialogActions';
 import Box from '@mui/material/Box';
 import EditIcon from '@material-ui/icons/Edit';
 import { DataGrid } from '@mui/x-data-grid';
+import "./styles.css"; // Replace "styles.css" with the actual path to your CSS file
 
 import axios from "../../../../api/axios";
-const URL = './service';
+const URL = './service/pending';
 
 const ServiceRequest = () => {    
 
@@ -171,19 +172,18 @@ const ServiceRequest = () => {
             </Dialog>
             
             <div style={{ marginTop: '10px', padding: '2px' }}>
-                <div className="GridContent">
-                    <Box sx={{ flexGrow: 1, padding: '0px', height: 400, width: '100%' }} >                    
-                        <DataGrid
-                            rows={dataList}
-                            columns={columns}
-                            rowData={editData}   
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}                          
-                            experimentalFeatures={{ newEditingApi: true }}
-                        /> 
-                    </Box>
-                </div>
-            </div>
+    <div className="GridContent">
+        <Box sx={{ flexGrow: 1, padding: '0px', height: 400, width: '100%' }} >  {/* Adjust the width here */}
+            <DataGrid
+                rows={dataList}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                experimentalFeatures={{ newEditingApi: true }}
+            />
+        </Box>
+    </div>
+</div>
         </>
     );
 }

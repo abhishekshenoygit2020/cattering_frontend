@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dialog, DialogContent, DialogTitle, FormControl, TextField, Grid } from '@mui/material';
-import DialogActions from '@mui/material/DialogActions';
-import Box from '@mui/material/Box';
-
+import { Grid, Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-
 import axios from "../../../../api/axios";
 const URL = './service/service';
 
@@ -22,17 +18,8 @@ const ServiceReport = () => {
         { field: "status", headerName: "status", width: 130 },
         { field: "amount", headerName: "amount", width: 130 },
     ];
-
-
-
     
 
-   
-    
-
-   
-    
-  
     const [dataList, setDataList] = useState([]);        
     const [refreshData, setRefreshData] = useState(false);
     
@@ -57,26 +44,24 @@ const ServiceReport = () => {
         } 
     };
     
-    
-    return  (
-        <>
-           
-            
-            <div style={{ marginTop: '10px', padding: '2px' }}>
-                <div className="GridContent">
-                    <Box sx={{ flexGrow: 1, padding: '0px', height: 400, width: '100%' }} >                    
-                        <DataGrid
-                            rows={dataList}
-                            columns={columns}
-                             
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}                          
-                            experimentalFeatures={{ newEditingApi: true }}
-                        /> 
-                    </Box>
-                </div>
+    return (
+        <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
+            <div className="formInputs" style={{ margin: 0, padding: 0, height: '100%', backgroundColor: 'rgb(246 249 255)' }}>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Box sx={{ height: '100%', width: '100%', padding: 0 }}>
+                            <DataGrid
+                                rows={dataList}
+                                columns={columns}
+                                pageSize={5}
+                                rowsPerPageOptions={[5]}                          
+                                experimentalFeatures={{ newEditingApi: true }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
             </div>
-        </>
+        </div>
     );
 }
 

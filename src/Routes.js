@@ -40,6 +40,7 @@ import SalesHistory from './Pages/Components/Employee/Sales/SalesHistory';
 import ServiceReport from './Pages/Components/Admin/Service/ServiceReport';
 import OnlineSales from './Pages/Components/Admin/Online/OnlineSales';
 import OfflineSales from './Pages/Components/Admin/Offline/OfflineSales';
+import Checkout from './Pages/Components/Main/pages/Checkout';
 
 // import ProtectedRoutes from './Pages/Components/Question/protectedRoutes';
 
@@ -60,6 +61,7 @@ const MainRoutes = () => {
                   <Route path="/ProductList" element={<ProductList />} />
                   <Route path="/Feedback" element={<Feedback />} />
                   <Route path="/Service" element={<Service/>}/>
+                  <Route pathe="/Checkout" element={<Checkout/>}/>
               </Route>        
               <Route element={<ProtectedRoutes />}>         
                 <Route path="/" element={<Home />} >
