@@ -78,7 +78,7 @@ const handleSubmit = (e) => {
     const method = "POST";
     try{      
         const data = {first_name:firstName,last_name:lastName,username:username,email,contact,designation,address};
-        const mainURL = URL+'/add';
+        const mainURL = 'auth/updateUserByID';
         serviceMethod(mainURL,method,data, handleSuccess,handleException);
     }catch(e){
       console.error(e);
