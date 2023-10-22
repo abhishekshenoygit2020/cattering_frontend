@@ -262,6 +262,10 @@ const handleException = (data) => {
   console.log(data);
 }
 
+const navigateTo = () => {
+    navigate("/payment")
+}
+
  
   return (
     <Container>
@@ -408,7 +412,7 @@ const handleException = (data) => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ 80</SummaryItemPrice>
             </SummaryItem> */}
-            <Button>CHECKOUT NOW</Button>
+            <Button onClick={navigateTo}>CHECKOUT NOW</Button>
           </Summary>
         </Bottom>
       </Wrapper>

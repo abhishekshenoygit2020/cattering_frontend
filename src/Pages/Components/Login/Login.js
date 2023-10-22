@@ -18,6 +18,7 @@ import ApplicationStore from '../../../utils/localStorageUtil';
 
 const LOGIN_URL = './auth/login';
 
+
 function Login() {
 
     
@@ -35,33 +36,32 @@ function Login() {
     const handleSave = async (e) => {
       e.preventDefault();         
       try{
-        const data = {email,password};  
-        
-
-        const response = await axios.post( LOGIN_URL,data,
+        const data = {email,password};
+        const response = await axios.post( LOGIN_URL ,data,
           {
              headers: {'Content-Type':'application/json' }                    
           }
        );       
        const dataResponse = response.data;     
+     
        if(dataResponse.success === 1){
                const userData = {              
-               userToken: dataResponse.data.userToken,
-               userRole: dataResponse.data.userRole,
-               companyCode:dataResponse.data.userCompany,
-               empid:dataResponse.data.empid,
-               empDetails:dataResponse.data.empDetails               
-           };
-           Login(userData);
-           if(dataResponse.data.userRole == "superuser"){
-            navigate('/SuperUserDashboard');         
-           }else if(dataResponse.data.userRole == "user"){
-            navigate('/CustHome');         
-           }else{
-            navigate('/Dashboard');         
-            }           
-           setEmail('');
-           setPassword('');
+                  userToken: dataResponse.data.userToken,
+                  userRole: dataResponse.data.userRole,
+                  companyCode:dataResponse.data.userCompany,
+                  empid:dataResponse.data.empid,
+                  empDetails:dataResponse.data.empDetails               
+              };
+              Login(userData);
+              if(dataResponse.data.userRole == "superuser"){
+                navigate('/SuperUserDashboard');         
+              }else if(dataResponse.data.userRole == "user"){
+                navigate('/CustHome');         
+              }else{
+                navigate('/Dashboard');         
+                }           
+              setEmail('');
+              setPassword('');
        }      
      
     }catch(err){
