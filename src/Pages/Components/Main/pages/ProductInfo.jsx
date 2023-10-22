@@ -8,7 +8,9 @@ import { mobile } from "../../../../responsive";
 import React , {useState, useEffect} from "react";
 import { Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import { useAuthContext } from '../../../../context/AuthContext';
-
+import ApplicationStore from "../../../../utils/localStorageUtil";
+import axios from "../../../../api/axios";
+const URL = './checkout';
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -122,6 +124,7 @@ const ProductInfo = () => {
 
   const {state} = useLocation();
   const {item} = state;
+  const empid=ApplicationStore().getStorage("empid");
   const [quantity, setQuantity] = useState(0);
   const { AddToCart, getCart, removeToCart,url } = useAuthContext();
 
@@ -138,9 +141,25 @@ const ProductInfo = () => {
       if(type == "inc"){
         setQuantity(quantity+1);
       }
-  }
+}
 
-  const cartData = () => {
+const serviceMethod = async(mainURL,method,data,handleSuccess,handleException)=>{
+    
+  try{
+    const response = await axios.post(mainURL,data);
+        return handleSuccess(response.data);
+  }
+  catch(err){
+    if(!err?.response){
+        console.log("No server response");                
+    }else{                
+        return handleException(err?.response.data);
+    }
+  }           
+};
+
+const cartData = () => {
+   
       const productData = {
          id:item.id,
          name:item.name,
@@ -151,25 +170,49 @@ const ProductInfo = () => {
       };
 
       AddToCart(productData);
+
+      
+      
+      const method = "POST";  
+      try {        
+         console.log(productData);
+          const data = {userid:empid,cartList:productData};
+          console.log(data);
+          const mainURL = URL+'/add';
+          serviceMethod(mainURL,method,data, handleSuccess, handleException);
+      }
+      catch(e){
+          console.error(e);
+      }
+
+
      
-     console.log("add to cart");
-  }
+     console.log(item);
+}
+
+const handleSuccess = (data) => {    
+  console.log("data"); 
+}
+
+const handleException = (data) => {
+  console.log(data);
+}
 
 
-  const removeData = () => {
-      const productData = {
-        id:item.id,
-        name:item.name,
-        img:item.img,
-        price:item.price,
-        quantity:quantity,
-        total:item.price*quantity
-      };
+const removeData = () => {
+    const productData = {
+      id:item.id,
+      name:item.name,
+      img:item.img,
+      price:item.price,
+      quantity:quantity,
+      total:item.price*quantity
+    };
 
-      removeToCart(productData);
-  
-      console.log("remove to cart");
-  }
+    removeToCart(productData);
+
+    console.log("remove to cart");
+}
 
   return (
     <Container>
