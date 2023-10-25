@@ -166,6 +166,7 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
   const applicationStore = ApplicationStore();
   const [subTotal,setSubTotal] = useState(0);
+  
   const { url } = useAuthContext();
  
   useEffect(() => {   
@@ -238,11 +239,11 @@ const Cart = () => {
   };
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const method = "POST";
-    const newTrackId = latestTrackId + 1;
-    setLatestTrackId(newTrackId);
+    const cart = applicationStore.getStorage('cart');
+    const method = "POST";  
     try {        
-        const data = {userid:empid,trackid:newTrackId};
+        const data = {userid:empid,cartList:cart};
+        console.log(data);
         const mainURL = URL+'/add';
         serviceMethod(mainURL,method,data, handleSuccess, handleException);
     }
@@ -253,14 +254,16 @@ const Cart = () => {
 };   
     
 
-const handleSuccess = (data) => {         
+const handleSuccess = (data) => {       
   
-  alert("successfully added");
-  navigate('/Checkout');      
-}
+  console.log("data"); }
 
 const handleException = (data) => {
   console.log(data);
+}
+
+const navigateTo = () => {
+    navigate("/payment")
 }
 
  
@@ -409,7 +412,7 @@ const handleException = (data) => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ 80</SummaryItemPrice>
             </SummaryItem> */}
-            <Button onClick={handleSubmit}>CHECKOUT NOW</Button>
+            <Button onClick={navigateTo}>CHECKOUT NOW</Button>
           </Summary>
         </Bottom>
       </Wrapper>
