@@ -45,9 +45,11 @@ export default function Home() {
         <SideBarDrawer /> 
       </div>  
       <div className="content">                       
-        <DrawerHeader />      
-       
-        <Outlet />
+        <DrawerHeader /> 
+        <Outlet />        
+      </div>
+      <div>
+        
       </div>
     </Box>
   );

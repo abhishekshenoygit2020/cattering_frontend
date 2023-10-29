@@ -18,7 +18,7 @@ export const AuthContextProvider = ({children}) => {
     const [loggedIn, setLoggedIn] = useState(false);    
     const [email, setEmail] = useState(''); 
     const [cart,setCart] = useState([]);
-    const [trackId,setTrackId] =  useState(0);
+    const [trackId,setTrackId] =  useState(0);  
 
     const navigate = useNavigate();
     const url = "http://localhost:3006";
@@ -112,6 +112,8 @@ export const AuthContextProvider = ({children}) => {
         ApplicationStore().setStorage('userCompany',userData.companyCode);
         ApplicationStore().setStorage('empid',userData.empid);
         ApplicationStore().setStorage('empDetails',userData.empDetails);
+        setUser(userData.empDetails.username);
+        setEmail(userData.empDetails.email);
         setLoggedIn(true);
     }
 
@@ -139,7 +141,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     return  (
-        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo,AddToCart,getCart,removeToCart,url,trackId}}>
+        <AuthContext.Provider value={{ user, Login, userRole,companyCode, email,loggedIn, Logout,trackgeneration,trackNo,AddToCart,getCart,removeToCart,url,trackId}}>
             {children} 
         </AuthContext.Provider>
     )
@@ -147,8 +149,8 @@ export const AuthContextProvider = ({children}) => {
 }
 
 export function useAuthContext(){
-    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart,url,trackId} =  useContext(AuthContext);
-    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart,url,trackId};
+    const {user, Login, userRole, copmanyCode,email,loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart,url,trackId} =  useContext(AuthContext);
+    return {user, Login, userRole,copmanyCode, email,loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart,url,trackId};
 }
 
 
