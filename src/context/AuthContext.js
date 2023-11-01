@@ -18,6 +18,7 @@ export const AuthContextProvider = ({children}) => {
     const [loggedIn, setLoggedIn] = useState(false);    
     const [email, setEmail] = useState(''); 
     const [cart,setCart] = useState([]);
+    const [empId, setEmpId] = useState('');
     const [trackId,setTrackId] =  useState(0);
 
     const navigate = useNavigate();
@@ -105,13 +106,12 @@ export const AuthContextProvider = ({children}) => {
     }
 
     const Login = userData => {
-    
-       
         ApplicationStore().setStorage('token',userData.userToken);
         ApplicationStore().setStorage('userRole',userData.userRole);
         ApplicationStore().setStorage('userCompany',userData.companyCode);
         ApplicationStore().setStorage('empid',userData.empid);
         ApplicationStore().setStorage('empDetails',userData.empDetails);
+        setEmpId(userData.empid);
         setLoggedIn(true);
     }
 
@@ -130,6 +130,8 @@ export const AuthContextProvider = ({children}) => {
             ApplicationStore().removeStorage('token');
             ApplicationStore().removeStorage('userRole');
             ApplicationStore().removeStorage('userCompany');
+            ApplicationStore().removeStorage('empid');
+            ApplicationStore().removeStorage('empDetails');
             setUser(null);
             setUserRole(null);        
             setCompanyCode(null);
@@ -139,7 +141,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     return  (
-        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo,AddToCart,getCart,removeToCart,url,trackId}}>
+        <AuthContext.Provider value={{ user, Login, userRole,companyCode, loggedIn, Logout,trackgeneration,trackNo,AddToCart,getCart,removeToCart,url,trackId,empId}}>
             {children} 
         </AuthContext.Provider>
     )
@@ -147,8 +149,8 @@ export const AuthContextProvider = ({children}) => {
 }
 
 export function useAuthContext(){
-    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart,url,trackId} =  useContext(AuthContext);
-    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart,url,trackId};
+    const {user, Login, userRole, copmanyCode,loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart,url,trackId,empId} =  useContext(AuthContext);
+    return {user, Login, userRole,copmanyCode, loggedIn, Logout,trackgeneration,trackNo,cart,AddToCart,getCart,removeToCart,url,trackId,empId};
 }
 
 

@@ -18,7 +18,7 @@ const URL = './userRegister';
 export default function Profile() {
   
  
-
+  const empid= ApplicationStore().getStorage("empid");
   const [id, setId] = useState(''); // If needed
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -34,9 +34,12 @@ export default function Profile() {
 
 
   const loadData = async () => {  
-    // console.log(searchedData.searchedData);    
+    
       try{
-            const response = await axios.get('auth/getUserById'); 
+            const response = await axios.get('auth/getUserById',{
+              headers: {'Content-Type':'application/json', "empid":empid },  
+                      
+           }); 
               if(response.data.status == 401){
                   
               }else{
