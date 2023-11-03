@@ -1,5 +1,7 @@
 import { Add, Remove } from "@material-ui/icons";
+import dayjs from 'dayjs';
 import styled from "styled-components";
+
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -11,7 +13,9 @@ import ApplicationStore from "../../../../utils/localStorageUtil";
 import { useAuthContext } from "../../../../context/AuthContext";
 import axios from "../../../../api/axios";
 
-const URL = './checkout';
+
+
+const URL = './booking';
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -166,6 +170,7 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
   const applicationStore = ApplicationStore();
   const [subTotal,setSubTotal] = useState(0);
+  const [rawTime, setRawTime] = React.useState(dayjs('2022-04-17T15:30'));
   
   const { url } = useAuthContext();
  
@@ -242,7 +247,7 @@ const Cart = () => {
     const cart = applicationStore.getStorage('cart');
     const method = "POST";  
     try {        
-        const data = {userid:empid,cartList:cart};
+        const data = {student_id:empid,serve:rawTime,cart_item:cart};
         console.log(data);
         const mainURL = URL+'/add';
         serviceMethod(mainURL,method,data, handleSuccess, handleException);
@@ -256,7 +261,10 @@ const Cart = () => {
 
 const handleSuccess = (data) => {       
   
-  console.log("data"); }
+  console.log("data");
+
+  ApplicationStore().removeStorage('cart');
+}
 
 const handleException = (data) => {
   console.log(data);
@@ -395,9 +403,19 @@ const navigateTo = () => {
             </Product> */}
           </Info>
           <Summary>
-            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+            <SummaryTitle>Serving Time</SummaryTitle>
             <SummaryItem>
-              <SummaryItemText>Subtotal</SummaryItemText>
+              <input
+                  className="time-input"
+                  type="time"
+                  onChange={ev => setRawTime(ev.target.value)}
+                  value={rawTime}
+                />
+            </SummaryItem>
+            <SummaryItem>
+                
+           
+              <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
             </SummaryItem>
             {/* <SummaryItem>
@@ -412,7 +430,7 @@ const navigateTo = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ 80</SummaryItemPrice>
             </SummaryItem> */}
-            <Button onClick={navigateTo}>CHECKOUT NOW</Button>
+            <Button onClick={handleSubmit}>Place Order</Button>
           </Summary>
         </Bottom>
       </Wrapper>

@@ -42,6 +42,9 @@ import OnlineSales from './Pages/Components/Admin/Online/OnlineSales';
 import OfflineSales from './Pages/Components/Admin/Offline/OfflineSales';
 import Checkout from './Pages/Components/Main/pages/Checkout';
 import Payment from './Pages/Components/Main/pages/Payment';
+import ManagePayment from './Pages/Components/Payment/ManagePayment';
+import ManageOrder from './Pages/Components/Payment/ManageOrders';
+import ViewOrder from './Pages/Components/Payment/ViewOrder';
 
 // import ProtectedRoutes from './Pages/Components/Question/protectedRoutes';
 
@@ -64,6 +67,7 @@ const MainRoutes = () => {
                   <Route path="/Payment" element={<Payment />} />
                   <Route path="/Service" element={<Service/>}/>
                   <Route path="/Checkout" element={<Checkout/>}/>
+                  
               </Route>        
               <Route element={<ProtectedRoutes />}>         
                 <Route path="/" element={<Home />} >
@@ -86,6 +90,9 @@ const MainRoutes = () => {
                 <Route path="/ServiceReport" element={<ServiceReport/>}/>
                 <Route path="/Online" element={<OnlineSales/>}/>
                 <Route path="/Offline" element={<OfflineSales/>}/>
+                <Route path="/ManagePayment" element={<ManagePayment />}/>
+                <Route path="/ManageOrder" element={<ManageOrder />}/>
+                <Route path="/ViewOrder" element={<ViewOrder />} />
               </Route>
               <Route path="/DashboardUser" element={<Navbar/>}/> 
             </Route>                      
