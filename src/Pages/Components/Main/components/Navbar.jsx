@@ -139,16 +139,16 @@ const Navbar = () => {
         </Center>
         <Right>
           {/* <Link to='/Product'><MenuItem>Products</MenuItem></Link> */}
-          <Link to='/ProductList'><MenuItem>Products List</MenuItem></Link>
-          <Link to='/Cart'><MenuItem>CART</MenuItem></Link>
+          <Link to='/ProductList'><MenuItem>Products List</MenuItem></Link>        
           <Link to='/Service'><MenuItem>Service</MenuItem></Link>
           <Link to='/Feedback'><MenuItem>Feedback</MenuItem></Link>
+          <Link to='/Cart'><MenuItem>Checkout</MenuItem></Link>
           <MenuItem onClick={Logout}>Logout</MenuItem>
-          <MenuItem>
+          {/* <MenuItem>
             <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />
             </Badge>
-          </MenuItem>
+          </MenuItem> */}
         </Right>
       </Wrapper>
     </Container>

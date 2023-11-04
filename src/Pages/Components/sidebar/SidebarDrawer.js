@@ -154,6 +154,20 @@ export default function SideBarDrawer(){
         // icon:<ExitToAppIcon />
         
     },
+    {
+      path: "/ManageOrder",
+      name: "ManageOrder",
+     
+      // icon:<ExitToAppIcon />
+      
+    },
+    {
+      path: "/ManagePayment",
+      name: "ManagePayment",
+     
+      // icon:<ExitToAppIcon />
+      
+   },
     
     {
         path: "/ChangePassword",

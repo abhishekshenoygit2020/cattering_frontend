@@ -11,7 +11,7 @@ import SalAdd from './SalAdd';
 const URL = './track';
 
 const FormSal = () => {
-    const {trackNo} = useAuthContext();
+  const {trackNo} = useAuthContext();
   const [id, setId] = useState('');
   const [product_id, setProd_id] = useState('');
   const [quantity, setQuantity] = useState('');

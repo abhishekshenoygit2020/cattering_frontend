@@ -20,7 +20,7 @@ const Products = () => {
   const [refreshData, setRefreshData] = useState(false);
   const {state} = useLocation();
 
- const searchedData = state ? state.searchedData : null;
+  const searchedData = state ? state.barcode_number : null;
 
   useEffect(() => {
     if(searchedData){
