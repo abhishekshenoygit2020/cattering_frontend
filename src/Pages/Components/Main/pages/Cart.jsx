@@ -1,12 +1,14 @@
 import { Add, Remove } from "@material-ui/icons";
 import dayjs from 'dayjs';
 import styled from "styled-components";
-
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
 import Announcement from "../components/Announcement";
+import {  FormControl, Input, InputLabel, MenuItem, Select } from '@mui/material';
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../../../../responsive";
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Newsletter from "../components/Newsletter";
 import ApplicationStore from "../../../../utils/localStorageUtil";
@@ -165,30 +167,84 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  const empid=ApplicationStore().getStorage("empid");
+  const empid = ApplicationStore().getStorage("empid");
   const navigate = useNavigate();
   const [cartData, setCartData] = useState([]);
   const applicationStore = ApplicationStore();
-  const [subTotal,setSubTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
   const [rawTime, setRawTime] = React.useState(dayjs('2022-04-17T15:30'));
-  
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [contact, setContact] = useState('');
+  const [designation, setDesignation] = useState('');
+  const [address, setAddress] = useState('');
+  const [programDate, setProgramDate] = useState(""); 
+  const [placeID, setPlaceID] = useState("");
+  const [program, setProgram] = useState("");
+  const [categorylist, setCategorylist] = useState([]);
+  const [category_id, setCategory_id] = useState('');
+
+
   const { url } = useAuthContext();
- 
-  useEffect(() => {   
+
+  useEffect(() => {
     console.log("helo");
-    loadData();  
+    loadData();
   }, []);
 
   const loadData = async () => {
-      const cart = await applicationStore.getStorage('cart');
-      console.log(cart);
-      setCartData(cart);
-      calculateSubTotal(cart);
+    const cart = await applicationStore.getStorage('cart');
+    console.log(cart);
+    setCartData(cart);
+    calculateSubTotal(cart);
+
+    try {
+      const response = await axios.get('auth/getUserById', {
+        headers: { 'Content-Type': 'application/json', "empid": empid },
+
+      });
+      if (response.data.status == 401) {
+
+      } else {
+        setFirstName(response.data.data[0].first_name);
+        setLastName(response.data.data[0].last_name);
+        setUserName(response.data.data[0].username);
+        setEmail(response.data.data[0].email);
+        setContact(response.data.data[0].contact);
+        setDesignation(response.data.data[0].designation);
+        setAddress(response.data.data[0].address);
+
+      }
+
+    } catch (err) {
+      if (!err?.response) {
+        console.log("No server response");
+      } else {
+        console.log(err?.response.data);
+      }
+    }
+    try {
+      let URL = './place/';
+      const response = await axios.get(URL);
+      if (response.data.status == 401) {
+        setCategorylist('');
+      } else {
+        setCategorylist(response.data.data);
+      }
+    } catch (err) {
+      if (!err?.response) {
+        console.log("No server response");
+      } else {
+        console.log(err?.response.data);
+      }
+    }
   }
 
   const calculateSubTotal = (cart) => {
     let total = 0;
-    if(cart.length>0){
+    if (cart.length > 0) {
       cart.forEach(item => {
         total += item.total;
       });
@@ -204,77 +260,77 @@ const Cart = () => {
   //   applicationStore.setStorage('cart', updatedProduct);
   // };
 
-  const updateProduct = (index,type) => {
-    if(type == "add"){
-      console.log(index+" add");
+  const updateProduct = (index, type) => {
+    if (type == "add") {
+      console.log(index + " add");
       const updatedCart = [...cartData];
-      updatedCart[index].quantity = updatedCart[index].quantity+1;
-      updatedCart[index].total = updatedCart[index].quantity*updatedCart[index].price;
+      updatedCart[index].quantity = updatedCart[index].quantity + 1;
+      updatedCart[index].total = updatedCart[index].quantity * updatedCart[index].price;
       setCartData(updatedCart);
       applicationStore.setStorage('cart', updatedCart);
       calculateSubTotal(updatedCart);
 
-    }else{
-      console.log(index+" sub");
+    } else {
+      console.log(index + " sub");
       const updatedCart = [...cartData];
-      updatedCart[index].quantity = updatedCart[index].quantity == 0 ? 0 : updatedCart[index].quantity-1;
-      updatedCart[index].total = updatedCart[index].quantity*updatedCart[index].price;
+      updatedCart[index].quantity = updatedCart[index].quantity == 0 ? 0 : updatedCart[index].quantity - 1;
+      updatedCart[index].total = updatedCart[index].quantity * updatedCart[index].price;
       setCartData(updatedCart);
       applicationStore.setStorage('cart', updatedCart);
       calculateSubTotal(updatedCart);
     }
-    
+
 
   };
 
- 
-  const serviceMethod = async(mainURL,method,data,handleSuccess,handleException)=>{
-    
-    try{
-      const response = await axios.post(mainURL,data);
-          return handleSuccess(response.data);
+
+  const serviceMethod = async (mainURL, method, data, handleSuccess, handleException) => {
+
+    try {
+      const response = await axios.post(mainURL, data);
+      return handleSuccess(response.data);
     }
-    catch(err){
-      if(!err?.response){
-          console.log("No server response");                
-      }else{                
-          return handleException(err?.response.data);
+    catch (err) {
+      if (!err?.response) {
+        console.log("No server response");
+      } else {
+        return handleException(err?.response.data);
       }
-  }           
+    }
   };
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const cart = applicationStore.getStorage('cart');
-    const method = "POST";  
-    try {        
-        const data = {student_id:empid,serve:rawTime,cart_item:cart};
-        console.log(data);
-        const mainURL = URL+'/add';
-        serviceMethod(mainURL,method,data, handleSuccess, handleException);
+    const method = "POST";
+    try {
+      const data = { student_id: empid, serve: rawTime, placeID, programDate, program, cart_item: cart };
+      console.log(data);
+      const mainURL = URL + '/add';
+      serviceMethod(mainURL, method, data, handleSuccess, handleException);
     }
-    catch(e){
-        console.error(e);
-        
-    } 
-};   
-    
+    catch (e) {
+      console.error(e);
 
-const handleSuccess = (data) => {       
-  
-  console.log("data");
+    }
+  };
 
-  ApplicationStore().removeStorage('cart');
-}
 
-const handleException = (data) => {
-  console.log(data);
-}
+  const handleSuccess = (data) => {
 
-const navigateTo = () => {
+    console.log("data");
+
+    ApplicationStore().removeStorage('cart');
+  }
+
+  const handleException = (data) => {
+    console.log(data);
+  }
+
+  const navigateTo = () => {
     navigate("/payment")
-}
+  }
 
- 
+
   return (
     <Container>
       <Navbar />
@@ -292,12 +348,12 @@ const navigateTo = () => {
         <Bottom>
           <Info>
             {
-               cartData.length>0?cartData.map((item,index) => (                    
-                
-                  
+              cartData.length > 0 ? cartData.map((item, index) => (
+
+
                 <Product key={item.id}>
                   <ProductDetail>
-                    <Image src={url+item.img} style={{  height:100, width:100 }}/>
+                    <Image src={url + item.img} style={{ height: 100, width: 100 }} />
                     <Details>
                       <ProductName>
                         <b>Product:</b> {item.name}
@@ -320,19 +376,19 @@ const navigateTo = () => {
                     <ProductPrice>Price : $ {item.price}</ProductPrice>
                     <ProductPrice>Total : $ {item.total}</ProductPrice>
                   </PriceDetail> */}
-                   <Summary>
+                  <Summary>
                     {/* <SummaryTitle>Product SUMMARY</SummaryTitle> */}
                     <SummaryItem>
                       <SummaryItemText>Quanity</SummaryItemText>
                       <SummaryItemPrice><ProductAmountContainer>
-                        <Add onClick={() => {updateProduct(index,"add")}}/>
+                        <Add onClick={() => { updateProduct(index, "add") }} />
                         <ProductAmount>{item.quantity}</ProductAmount>
-                        <Remove onClick={() => {updateProduct(index,"sub")}}/>
-                    </ProductAmountContainer></SummaryItemPrice>
+                        <Remove onClick={() => { updateProduct(index, "sub") }} />
+                      </ProductAmountContainer></SummaryItemPrice>
                     </SummaryItem>
                     <SummaryItem>
                       <SummaryItemText>Price</SummaryItemText>
-                      <SummaryItemPrice>$  {item.price}</SummaryItemPrice> 
+                      <SummaryItemPrice>$  {item.price}</SummaryItemPrice>
                     </SummaryItem>
                     {/* <SummaryItem>
                       <SummaryItemText>Shipping Discount</SummaryItemText>
@@ -341,13 +397,13 @@ const navigateTo = () => {
                     <SummaryItem type="total">
                       <SummaryItemText>Total</SummaryItemText>
                       <SummaryItemPrice>$ {item.total}</SummaryItemPrice>
-                      
+
                     </SummaryItem>
-                    
+
                   </Summary>
                 </Product>
 
-               )):""
+              )) : ""
             }
             {/* <Product>
               <ProductDetail>
@@ -403,18 +459,113 @@ const navigateTo = () => {
             </Product> */}
           </Info>
           <Summary>
-            <SummaryTitle>Serving Time</SummaryTitle>
+            <SummaryTitle>Customer Information</SummaryTitle>
             <SummaryItem>
-              <input
-                  className="time-input"
-                  type="time"
-                  onChange={ev => setRawTime(ev.target.value)}
-                  value={rawTime}
-                />
+
+              <Grid container spacing={2}>
+
+
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+
+                    onChange={(e) => { setEmail(e.target.value) }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Phone number"
+                    name="email"
+                    autoComplete="email"
+                    value={contact}
+                    onChange={(e) => { setContact(e.target.value) }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="address"
+                    label="address"
+                    type="address"
+                    id="address"
+                    autoComplete=""
+                    value={address}
+                    onChange={(e) => { setAddress(e.target.value) }}
+                  />
+                </Grid>
+
+              </Grid>
+            </SummaryItem>
+
+          </Summary>
+          <Summary>
+            <SummaryTitle>Program Information</SummaryTitle>
+            <SummaryItem>
+
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="given-name"
+                    name="Program name"
+                    required
+                    fullWidth
+                    id="firstp_Name"
+                    label="Program name"
+                    value={program}
+                    onChange={(e) => setProgram(e.target.value)}
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Program Date"
+                    name="Date"
+                    autoComplete="family-name"
+                    value={programDate}
+                    onChange={(e) => setProgramDate(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Place Name</InputLabel>
+                    <Select
+
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={placeID}
+                      label="Category name"
+                      onChange={(e) => {
+                        setPlaceID(e.target.value);
+                        console.log(e.target.value);
+                      }}
+                    >
+                      {categorylist.map(category => (
+                        <MenuItem value={category.place_id}>{category.place_name}</MenuItem>
+
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+
+              </Grid>
             </SummaryItem>
             <SummaryItem>
-                
-           
+
+
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
             </SummaryItem>
@@ -430,8 +581,9 @@ const navigateTo = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ 80</SummaryItemPrice>
             </SummaryItem> */}
-            <Button onClick={handleSubmit}>Place Order</Button>
+            <Button onClick={handleSubmit}>Get Quote</Button>
           </Summary>
+
         </Bottom>
       </Wrapper>
       <Newsletter />

@@ -27,6 +27,7 @@ function ChangePassword() {
   const [confirmNewPassword,setConfirmNewPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const { Login, email, user} = useAuthContext();
+  const  userDetails  = ApplicationStore().getStorage('empDetails'); 
   const navigate = useNavigate();
     
   const handleSubmit = (event) => {
@@ -37,7 +38,7 @@ function ChangePassword() {
     const handleSave = async (e) => {
       e.preventDefault();         
       try{
-        const data = {username:user,email,newPassword,oldPassword,confirmPassword:confirmNewPassword};  
+        const data = {username:userDetails.username,email:userDetails.email,newPassword,oldPassword,confirmPassword:confirmNewPassword};  
         
 
         const response = await axios.post( LOGIN_URL,data,

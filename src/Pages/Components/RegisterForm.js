@@ -93,6 +93,16 @@ export default function RegisterForm() {
                   value={first_name}
                   onChange={(e) => { setFirstname(e.target.value)}}
                   autoFocus
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "purple",
+                      },
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { color: 'purple' }, // Change to the desired label color
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -105,6 +115,16 @@ export default function RegisterForm() {
                   autoComplete="family-name"
                   value={last_name}
                   onChange={(e) => { setLastname(e.target.value)}}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "purple",
+                      },
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { color: 'purple' }, // Change to the desired label color
+                  }}
                 />
               </Grid>
               <Grid item xs={12} >
@@ -116,7 +136,17 @@ export default function RegisterForm() {
                   name="lastName"
                   autoComplete="family-name"
                   value={username}
-                  onChange={(e) => { setUsername(e.target.value)}}
+                  onChange={(e) => { setUsername(e.target.value)}}sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "purple",
+                      },
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { color: 'purple' }, // Change to the desired label color
+                  }}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -130,6 +160,16 @@ export default function RegisterForm() {
                   value={email}
                   
                   onChange={(e) => { setEmail(e.target.value)}}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "purple",
+                      },
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { color: 'purple' }, // Change to the desired label color
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -141,6 +181,16 @@ export default function RegisterForm() {
                   name="email"
                   autoComplete="email"
                   value={contact}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "purple",
+                      },
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { color: 'purple' }, // Change to the desired label color
+                  }}
                   onChange={(e) => { setContact(e.target.value)}}
                 />
               </Grid>
@@ -154,6 +204,16 @@ export default function RegisterForm() {
                   id="password"
                   autoComplete=""
                   value={password}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "purple",
+                      },
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { color: 'purple' }, // Change to the desired label color
+                  }}
                   onChange={(e) => { setPassword(e.target.value)}}
                 />
               </Grid>
@@ -163,14 +223,23 @@ export default function RegisterForm() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ 
+                mt: 3, mb: 2,
+                 background:"purple", 
+                 height:"50px",
+                 '&:hover': {
+                    background: "#80008036", // Change to the desired hover color
+                    color:"purple"
+                 }, 
+                
+              }}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="Login" variant="body2">
-                  Already have an account? Sign in
+                <Link href="Login" variant="body2" style={{ color: 'purple' }}>
+                  <b>Return To Sign Up?</b>
                 </Link>
               </Grid>
             </Grid>

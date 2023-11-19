@@ -124,13 +124,14 @@ function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          <b>Sign in</b>
+          <b>Login</b>
         </Typography>
+       
         <Grid container>
           <Grid item xs>            
               <h5>New User ? &nbsp;
                 <Link href="RegisterForm" variant="body2" style={{ color: 'purple' }}>
-                  Sign up here
+                  <b>Sign up here</b>
                 </Link>
               </h5> 
           </Grid>
@@ -212,7 +213,7 @@ function Login() {
           <Grid container>
             <Grid item xs>
               <Link href="ForgotPassword" variant="body2" style={{ color: 'purple' }}>
-                Forgot password?
+                <b>Forgot password?</b>
               </Link>
             </Grid>
           </Grid>

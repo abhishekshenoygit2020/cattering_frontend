@@ -197,7 +197,7 @@ const CatDisplay = () => {
                                 setIsAddButton(true);
                                 setOpen(true);
                                 setEditData([]);
-                            }} variant="contained">Add Organisation</Button>
+                            }} variant="contained">Add Category</Button>
                         </Grid>                        
                     </Grid>
                 </Box>

@@ -7,6 +7,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from '../../../api/axios';
 import { Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import { useAuthContext } from '../../../context/AuthContext';
+import Navbar from '../Main/components/Navbar';
 
 // import SalAdd from './SalAdd';
 
@@ -152,6 +153,7 @@ const ViewOrder = () => {
 
   return (
     <>
+    <Navbar />
     <Box sx={{ p: 1, display: 'flex' }}>
         <Grid item xs={2}>          
             <b>BarCode Number:</b> &nbsp;{barcode_number} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br></br> 

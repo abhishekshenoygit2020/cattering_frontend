@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Button, Dialog, DialogContent, DialogTitle, FormControl, Input, InputLabel, MenuItem, Select, TextField, Grid } from '@mui/material';
 import DialogActions from '@mui/material/DialogActions';
 import axios from "../../../api/axios";
-const URL = './products';
+const URL = './department';
 
-const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
+const SupplierAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
 
     //basic information
     const [id, setId] = useState('');
-    const [pname, setPname] = useState('');
-    const [price, setPrice] = useState('');
-    const [description, setDescription] = useState('');
-    const [image, setImage] = useState('');
-    const [type, setType] = useState('');
-    const [name, setName] = useState('');
+    const [supplierName, setSupplierName] = useState('');
+    const [contactNo, setContactNo] = useState('');
+    const [place, setPlace] = useState('');
+  
+    const [address, setAddress] = useState('');
+    const [gstIN, setGstIN] = useState('');
     const [categorylist, setCategorylist] = useState([]);
     const [category_id, setCategory_id] = useState('');
 
@@ -21,7 +21,7 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
 
 
     const handleImageClear = () => {
-        setImage(null);
+       // setImage(null);
     };
 
 
@@ -43,11 +43,11 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
         e.preventDefault();
         const method = "POST";
         if (isAddButton) {
-            const data = { category_id: name, pname, price, description, image, type };
+            const data = { name:supplierName,place_id:place, supplier_name:supplierName, supplier_gstin:gstIN,supplier_address:address,supplier_phone_number:contactNo};
             const mainURL = URL + '/add';
             serviceMethod(mainURL, method, data, handleSuccess, handleException);
         } else {
-            const data = { id, category_id, pname, price, description, image, type };
+            const data = { };
             const mainURL = URL + '/' + data.id + '/update';
             serviceMethod(mainURL, method, data, handleSuccess, handleException);
         }
@@ -59,17 +59,17 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
     }, [rowData]);
 
     const loadData = async () => {
-        setId(rowData.id);
-        setPname(rowData.pname);
-        setPrice(rowData.price);
-        setDescription(rowData.description);
-        setImage(rowData.image);
-        setType(rowData.type);
-        setDescription(rowData.description);
-        setCategory_id(rowData.category_id);
+        // setId(rowData.id);
+        // setPname(rowData.pname);
+        // setPrice(rowData.price);
+        // setDescription(rowData.description);
+        // setImage(rowData.image);
+        // setType(rowData.type);
+        // setDescription(rowData.description);
+        // setCategory_id(rowData.category_id);
 
         try {
-            let URL = './category/';
+            let URL = './place/';
             const response = await axios.get(URL);
             if (response.data.status == 401) {
                 setCategorylist('');
@@ -109,27 +109,27 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
 
             <form onSubmit={handleSubmit} >
                 <DialogTitle>
-                    {isAddButton ? "Add product" : "Edit product"}
+                    {isAddButton ? "Add Supplier" : "Edit Supplier"}
                 </DialogTitle>
                 <DialogContent>
                     <Grid item xs={12}>
                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                             <Grid item xs={3}>
                                 <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Category Name</InputLabel>
+                                    <InputLabel id="demo-simple-select-label">Place Name</InputLabel>
                                     <Select
 
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={name}
+                                        value={place}
                                         label="Category name"
                                         onChange={(e) => {
-                                            setName(e.target.value);
+                                            setPlace(e.target.value);
                                             console.log(e.target.value);
                                         }}
                                     >
                                         {categorylist.map(category => (
-                                            <MenuItem value={category.id}>{category.name}</MenuItem>
+                                            <MenuItem value={category.place_id}>{category.place_name}</MenuItem>
 
                                         ))}
                                     </Select>
@@ -138,14 +138,14 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
                             <Grid item xs={3}>
                                 <FormControl fullWidth>
                                     <TextField
-                                        value={pname}
+                                        value={supplierName}
                                         margin="dense"
                                         id="outlined-basic"
                                         label="name"
                                         variant="outlined"
                                         required
 
-                                        onChange={(e) => { setPname(e.target.value) }}
+                                        onChange={(e) => { setSupplierName(e.target.value) }}
 
                                     />
                                 </FormControl>
@@ -155,13 +155,13 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
                             <Grid item xs={3}>
                                 <FormControl fullWidth>
                                     <TextField
-                                        value={price}
+                                        value={gstIN}
                                         margin="dense"
                                         id="outlined-basic"
-                                        label="price"
+                                        label="GSTIN"
                                         variant="outlined"
                                         required
-                                        onChange={(e) => { setPrice(e.target.value) }}
+                                        onChange={(e) => { setGstIN(e.target.value) }}
 
                                     />
                                 </FormControl>
@@ -169,77 +169,37 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
                             <Grid item xs={3}>
                                 <FormControl fullWidth>
                                     <TextField
-                                        value={description}
+                                        value={contactNo}
                                         margin="dense"
                                         id="outlined-basic"
-                                        label="description"
+                                        label="Contact No"
                                         variant="outlined"
                                         required
 
-                                        onChange={(e) => { setDescription(e.target.value) }}
+                                        onChange={(e) => { setContactNo(e.target.value) }}
 
                                     />
                                 </FormControl>
                             </Grid>
                             <Grid item xs={3}>
                                 <FormControl fullWidth>
-                                    {/* <div>
-                                    <Input
-                                        type="file"
-                                        inputProps={{ accept: 'image/*' }}
-                                        onChange={handleImageUpload}
-                                    />
-                                    <Button onClick={handleImageClear} disabled={!image}>
-                                        Clear Image
-                                    </Button>
-                                    {image && <img src={image} alt="Uploaded" />}
-                                </div> */}
                                     <TextField
-                                        fullWidth
-                                        label="Product Image"
+                                        value={address}
+                                        margin="dense"
+                                        id="outlined-basic"
+                                        label="Address"
+                                        variant="outlined"
+                                        required
 
-                                        onBlur={() => {
-                                            //validateForNullValue(customerLogo, 'customerLogo');
-                                        }}
-                                        onChange={(e) => {
-                                            if (e.target.files && e.target.files.length > 0) {
-                                                setImage(e.target.files[0]);
-                                                const reader = new FileReader();
-                                                reader.onload = () => {
-                                                    if (reader.readyState === 2) {
-                                                        setImage(reader.result);
-                                                        //   setPreviewBuilding(reader.result);
-                                                    }
-                                                }
-                                                reader.readAsDataURL(e.target.files[0]);
-                                            }
-                                        }}
-                                        InputLabelProps={{ shrink: true }}
-                                        type="file"
-                                    // inputProps={{
-                                    //     accept:"image/png",
-                                    // }}
+                                        onChange={(e) => { setAddress(e.target.value) }}
+
                                     />
                                 </FormControl>
                             </Grid>
+                           
 
 
-                            <Grid item xs={3}>
-                                <FormControl fullWidth>
-                                <InputLabel id="warranty-label">Type</InputLabel>
-                                <Select
-                                    labelId="warranty-label"
-                                    id="warranty-select"
-                                    value={type}
-                                    onChange={(e) => { setType(e.target.value) }}
-                                    label="Warranty"
-                                >
-                                    <MenuItem value="Veg">Veg</MenuItem>
-                                    <MenuItem value="Non Veg">Non Veg</MenuItem>                                    
-                                    {/* Add more MenuItem components for additional options */}
-                                </Select>
-                                </FormControl>
-                            </Grid>
+                           
 
 
                         </Grid>
@@ -268,4 +228,4 @@ const ProdAdd = ({ open, setOpen, isAddButton, rowData, setRefreshData }) => {
     );
 }
 
-export default ProdAdd;
+export default SupplierAdd;

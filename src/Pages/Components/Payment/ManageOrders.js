@@ -6,6 +6,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from "../../../api/axios";
 import { useNavigate } from 'react-router-dom';
+import Navbar from "../Main/components/Navbar";
 
 const URL = './order/getBookings';
 
@@ -13,9 +14,9 @@ const ManageOrder = () => {
 
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
-        { field: "barcode_number", headerName: "Token Number", width: 130 },
+        { field: "barcode_number", headerName: "Order Number", width: 130 },
         { field: "serving_time", headerName: "Serving Time", width: 130 },
-        { field: "student_id", headerName: "Student Reg No", width: 130 },
+        { field: "student_id", headerName: "Customer ID", width: 130 },
         { field: "booking_date", headerName: "Ordered On", width: 130 },
         { field: "booking_status", headerName: "Status", width: 130 },      
         {
@@ -67,7 +68,7 @@ const ManageOrder = () => {
             <EditIcon style={{ cursor: "pointer" }} onClick={(e) => {
                 e.stopPropagation();
                 console.log(props.selectedRow.barcode_number);
-                navigate('/ViewOrder', { state: { barcode_number:props.selectedRow.barcode_number }});
+                navigate('/CustViewOrder', { state: { barcode_number:props.selectedRow.barcode_number }});
                 // setEditData(props.selectedRow);
                 // setId(props.selectedRow.id);
                 // setOpen(true);                
@@ -121,6 +122,7 @@ const ManageOrder = () => {
 
     return  (
         <>
+        <Navbar />
             <Dialog
                 fullWidth={true}
                 maxWidth="lg"

@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -11,9 +13,10 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import LockIcon from '@material-ui/icons/Lock';
-import ProdAdd from "./ProdAdd";
+
+import PlaceAdd from "./PlaceAdd";
 import axios from "../../../api/axios";
-const URL = './products';
+const URL = './place';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,58 +26,46 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const ProdDisplay = () => {    
+const PlaceDisplay = () => {    
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
-          field: 'catname', 
-          headerName: 'Category Name',
+          field: 'place_name',
+          headerName: 'Name',
           width: 150,
           editable: true,
         },
         {
-          field: 'name',
-          headerName: 'Item Name',
+          field: 'place_date_create',
+          headerName: 'Date',
           width: 150,
           editable: true,
         },
         {
-          field: 'price',
-          headerName: 'price',
+          field: 'status',
+          headerName: 'status',
           width: 150,
           editable: true,
         },
-        {
-          field: 'description',
-          headerName: 'description',
-          width: 150,
-          editable: true,
-        },  
-        {
-          field: 'image',
-          headerName: ' image',
-          width: 150,
-          editable: true,
-        }, 
-        {
-          field: 'type',
-          headerName: 'type',
-          width: 50,
-          editable: true,
-        },  
-        {
-            field: 'date',
-            headerName: 'date',
-            width: 50,
-            editable: true,
-          },
-          {
-            field: 'status',
-            headerName: 'status',
-            width: 50,
-            editable: true,
-          },  
+        // {
+        //   field: 'email',
+        //   headerName: 'Email',
+        //   width: 150,
+        //   editable: true,
+        // },  
+        // {
+        //   field: 'contactname',
+        //   headerName: 'Contact person name',
+        //   width: 150,
+        //   editable: true,
+        // }, 
+        // {
+        //   field: 'logo',
+        //   headerName: 'Logo',
+        //   width: 50,
+        //   editable: true,
+        // },  
         {
             field: 'actions',
             type: 'actions',
@@ -142,7 +133,11 @@ const ProdDisplay = () => {
                }
              
          }catch(err){
-       
+        // try{
+        //     let URL='./auth/getUser';
+        //     const response = await axios.get( URL );            
+        //     setDataList(response.data.data || '');
+        // }catch(err){
             if(!err?.response){
                 console.log("No server response");
             }else{
@@ -203,7 +198,7 @@ const ProdDisplay = () => {
                                 setIsAddButton(true);
                                 setOpen(true);
                                 setEditData([]);
-                            }} variant="contained">Add Item</Button>
+                            }} variant="contained">Add Place</Button>
                         </Grid>                        
                     </Grid>
                 </Box>
@@ -217,7 +212,7 @@ const ProdDisplay = () => {
                         rowsPerPageOptions={[5]}                          
                         experimentalFeatures={{ newEditingApi: true }}
                     /> 
-                    <ProdAdd
+                    <PlaceAdd
                         isAddButton ={isAddButton}                        
                         setOpen ={setOpen} 
                         open={open}   
@@ -231,4 +226,4 @@ const ProdDisplay = () => {
     );
 }
 
-export default ProdDisplay;
+export default PlaceDisplay;

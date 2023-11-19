@@ -39,18 +39,17 @@ export default function Home() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />      
-      <AppBarNav /> 
-      <div className=''>
+      <CssBaseline />     
+     
+      <div className='' style={{ display:""}}>
         <SideBarDrawer /> 
+        <AppBarNav drawerWidth={drawerWidth} /> 
       </div>  
-      <div className="content">                       
+      <div className="content" >                       
         <DrawerHeader /> 
         <Outlet />        
       </div>
-      <div>
-        
-      </div>
+     
     </Box>
   );
 }

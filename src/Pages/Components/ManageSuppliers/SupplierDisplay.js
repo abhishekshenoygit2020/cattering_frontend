@@ -11,9 +11,9 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import LockIcon from '@material-ui/icons/Lock';
-import ProdAdd from "./ProdAdd";
+import SupplierAdd from "./SupplierAdd";
 import axios from "../../../api/axios";
-const URL = './products';
+const URL = './department';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,58 +23,46 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const ProdDisplay = () => {    
+const SupplierDisplay = () => {    
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
-          field: 'catname', 
-          headerName: 'Category Name',
+          field: 'supplier_name', 
+          headerName: 'Supplier Name',
           width: 150,
           editable: true,
         },
         {
-          field: 'name',
-          headerName: 'Item Name',
+          field: 'supplier_gstin',
+          headerName: 'GSTIN',
           width: 150,
           editable: true,
         },
         {
-          field: 'price',
-          headerName: 'price',
+          field: 'supplier_address',
+          headerName: 'Address',
           width: 150,
           editable: true,
         },
         {
-          field: 'description',
-          headerName: 'description',
+          field: 'supplier_phone_number',
+          headerName: 'Ph Number',
           width: 150,
           editable: true,
         },  
         {
-          field: 'image',
-          headerName: ' image',
+          field: 'supplier_date_create',
+          headerName: 'Date',
           width: 150,
           editable: true,
         }, 
         {
-          field: 'type',
-          headerName: 'type',
-          width: 50,
+          field: 'supplier_status',
+          headerName: 'Status',
+          width: 150,
           editable: true,
-        },  
-        {
-            field: 'date',
-            headerName: 'date',
-            width: 50,
-            editable: true,
-          },
-          {
-            field: 'status',
-            headerName: 'status',
-            width: 50,
-            editable: true,
-          },  
+        },         
         {
             field: 'actions',
             type: 'actions',
@@ -203,7 +191,7 @@ const ProdDisplay = () => {
                                 setIsAddButton(true);
                                 setOpen(true);
                                 setEditData([]);
-                            }} variant="contained">Add Item</Button>
+                            }} variant="contained">Add Supplier</Button>
                         </Grid>                        
                     </Grid>
                 </Box>
@@ -217,7 +205,7 @@ const ProdDisplay = () => {
                         rowsPerPageOptions={[5]}                          
                         experimentalFeatures={{ newEditingApi: true }}
                     /> 
-                    <ProdAdd
+                    <SupplierAdd
                         isAddButton ={isAddButton}                        
                         setOpen ={setOpen} 
                         open={open}   
@@ -231,4 +219,4 @@ const ProdDisplay = () => {
     );
 }
 
-export default ProdDisplay;
+export default SupplierDisplay;

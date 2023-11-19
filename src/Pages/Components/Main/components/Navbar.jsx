@@ -139,9 +139,12 @@ const Navbar = () => {
         </Center>
         <Right>
           {/* <Link to='/Product'><MenuItem>Products</MenuItem></Link> */}
-          <Link to='/ProductList'><MenuItem>Products List</MenuItem></Link>        
+          <Link to='/ProductList'><MenuItem>Products List</MenuItem></Link>         
           <Link to='/Service'><MenuItem>Service</MenuItem></Link>
-          <Link to='/Feedback'><MenuItem>Feedback</MenuItem></Link>
+          <Link to='/userProfile'><MenuItem>Profile</MenuItem></Link>
+          <Link to='/ChangePassword'><MenuItem>Change Password</MenuItem></Link>
+          <Link to='/CustManageOrder'><MenuItem>Order</MenuItem></Link>
+      
           <Link to='/Cart'><MenuItem>Checkout</MenuItem></Link>
           <MenuItem onClick={Logout}>Logout</MenuItem>
           {/* <MenuItem>

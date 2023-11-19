@@ -33,6 +33,11 @@ const Sidebar = ({isOpen, setIsOpen }) => {
             icon:<PersonOutlineIcon />
         },
         {
+            path:"/Products",
+            name:"Products",
+            icon:<SettingsIcon />
+        },
+        {
             path:"/Sales",
             name:"Sales",
             icon:<DomainIcon />

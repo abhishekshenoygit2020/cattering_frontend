@@ -14,6 +14,7 @@ import DataGridDemo from './Pages/Components/Question/ChecklistProgress';
 import CheckTab from './Pages/Components/Newcheck/CheckTab';
 import AteRemoteMonitoring from './Pages/Components/Question/Question';
 import CatDisplay from './Pages/Components/ManageCategory/CatDisplay';
+import ProdAdd from './Pages/Components/ManageProducts/ProdAdd';
 import ProdDisplay from './Pages/Components/ManageProducts/ProdDisplay';
 import SalDisplay from './Pages/Components/Employee/Sales/SalDisplay';
 import StockDisplay from './Pages/Components/Employee/Stock/StockDisplay';
@@ -23,6 +24,7 @@ import Navbar from './Pages/Components/UserDashboard/Navbar';
 import ChangePassword from './Pages/Components/Login/ChangePassword';
 import ForgotPassword from './Pages/Components/Login/ForgotPassword';
 import Profile from './Pages/Components/Employee/Profile/Profile';
+import PlaceDisplay from './Pages/Components/ManagePlace/PlaceDisplay';
 import Home from './Pages/Components/homepage/Home';
 import Cart from './Pages/Components/Main/pages/Cart';
 import HomeMain from './Pages/Components/Main/pages/Home';
@@ -45,8 +47,16 @@ import Payment from './Pages/Components/Main/pages/Payment';
 import ManagePayment from './Pages/Components/Payment/ManagePayment';
 import ManageOrder from './Pages/Components/Payment/ManageOrders';
 import ViewOrder from './Pages/Components/Payment/ViewOrder';
+import SupplierDisplay from './Pages/Components/ManageSuppliers/SupplierDisplay';
 
 // import ProtectedRoutes from './Pages/Components/Question/protectedRoutes';
+
+// Customers:
+//   Order:
+//   Profile:
+//   settings:
+
+// Admin:
 
 
 const MainRoutes = () => {
@@ -62,12 +72,14 @@ const MainRoutes = () => {
                   <Route path="/CustHome" element={<HomeMain />} />
                   <Route path="/Cart" element={<Cart />} />
                   <Route path="/Product" element={<ProductInfo />} />
+                  <Route path="/userProfile" element={<Profile />} />
                   <Route path="/ProductList" element={<ProductList />} />
                   <Route path="/Feedback" element={<Feedback />} />
                   <Route path="/Payment" element={<Payment />} />
                   <Route path="/Service" element={<Service/>}/>
                   <Route path="/Checkout" element={<Checkout/>}/>
-                  
+                  <Route path="/CustManageOrder" element={<ManageOrder />}/>
+                  <Route path="/CustViewOrder" element={<ViewOrder />} />
               </Route>        
               <Route element={<ProtectedRoutes />}>         
                 <Route path="/" element={<Home />} >
@@ -93,6 +105,8 @@ const MainRoutes = () => {
                 <Route path="/ManagePayment" element={<ManagePayment />}/>
                 <Route path="/ManageOrder" element={<ManageOrder />}/>
                 <Route path="/ViewOrder" element={<ViewOrder />} />
+                <Route path="/Place" element={<PlaceDisplay />} />
+                <Route path="/Supplier" element={<SupplierDisplay />} />
               </Route>
               <Route path="/DashboardUser" element={<Navbar/>}/> 
             </Route>                      
